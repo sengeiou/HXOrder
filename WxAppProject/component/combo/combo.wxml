@@ -1,0 +1,115 @@
+<view class="page-body" hover-class="none" hover-stop-propagation="false">
+  <block wx:for="{{combos}}" wx:key="{{index}}">
+    <view class="container" hover-class="none" hover-stop-propagation="false">
+      <view class="card dish-combo" hover-class="none" hover-stop-propagation="false">
+        <view class="card-body" hover-class="none" hover-stop-propagation="false">
+
+          <view class="header">
+            <view class="title" selectable="true" space="true" decode="true">{{item.name}}</view>
+          </view>
+
+          <view>
+            <text class="sell" space="true" space="true" decode="true">本月销售量:{{item.sale}}<block wx:if="{{dishShowType=='order'}}">库存:{{item.stock}}</block></text>
+          </view>
+
+          <view>
+            <swiper style="height: {{set[index].swaperHeight}}rpx;" previous-margin="{{set[index].previousMargin}}" next-margin="{{set[index].nextMargin}}" bindchange="swiperBindchange" data-index="{{index}}">
+              <block wx:for="{{item.imgs}}">
+                <swiper-item>
+                  <image src="{{item}}" class="slide-image" />
+                </swiper-item>
+              </block>
+            </swiper>
+          </view>
+
+          <view>
+            <text class="title pos" selectable="false" space="false" decode="false">套餐具体配置</text>
+            <text>\n</text>
+            <view class="container" style="padding:0;" hover-class="none" hover-stop-propagation="false">
+              <price-lists totalPrice="{{totalPrice[index]}}" dishOrders="{{item.comboDish}}" shopDiscount="{{item.shopDiscount}}" couponDiscount="{{item.couponDiscount}}"></price-lists>
+            </view>
+          </view>
+
+          <view class="tag">
+            <block wx:for="{{item.tags}}" wx:for-index="j">
+              <!-- <vtu-tag type="out" bg-color="{{color[(j + index) % 8]}}" shape="circle" size="mini">
+                {{item}}
+              </vtu-tag> -->
+              <van-tag class="van-tags" style="margin-left:5px"  name="单个标签"  color="{{color[(j + index) % 5]}}">{{item}}</van-tag>
+            </block>
+          </view>
+
+          <view class="footer">
+            <view class="inf-icon">
+              <block wx:if="{{!item.like}}">
+                <van-icon name="like-o" size="20" data-id='{{index}}'  catchtap="clickLike" style="position:relative;top:3px;"/>
+                <!-- <i-icon type="like" size="50" data-id="{{index}}" catchtap="clickLike"/> -->
+                <text class="icon-plus" data-id="{{index}}" catchtap="clickLike">{{item.likeNum}}</text>
+              </block>
+              <block wx:else>
+                <van-icon name="like" color="red" size="20" data-id='{{index}}' catchtap="clickLike" style="position:relative;top:3px;"/>
+                <!-- <i-icon type="like_fill" color="red" size="50" data-id="{{index}}" catchtap="clickLike"/> -->
+                <text class="icon-plus" style="color:red" data-id="{{index}}" catchtap="clickLike">{{item.likeNum}}</text>
+              </block>
+
+              <block wx:if="{{!item.collection}}">
+                <van-icon name="star-o" size="20" data-id='{{index}}' catchtap="clickCollection" style="position:relative;top:3px;"/>
+                <!-- <i-icon type="collection"  size="50" data-id="{{index}}" catchtap="clickCollection"/> -->
+                <text class="icon-plus" data-id="{{index}}" catchtap="clickCollection">收藏</text>
+              </block>
+
+              <block wx:else>
+              <!-- <i-icon type="collection_fill" color="rgb(243, 144, 13)" size="50" data-id="{{index}}" catchtap="clickCollection"/> -->
+              
+                <van-icon name="star" color="rgb(243, 144, 13)" size="20" data-id='{{index}}' catchtap="clickCollection" style="position:relative;top:3px;"/>
+                <text class="icon-plus" style="color:rgb(243, 144, 13)" data-id="{{index}}" catchtap="clickCollection">收藏</text>
+              </block>
+
+              <block wx:if="{{dishShowType!='order'}}">
+
+                <van-button  type="{{!item.willBuy?'primary':'warning'}}" size="small" class="btn" bind:tap="add" data-id='{{index}}'>
+                  <text style="font-size:20rpx">{{item.willBuy?'移除我的待选':'加入我的待选'}} </text>
+                </van-button>
+                <!-- <l-button type="{{item.willBuy?'success':'warning'}}" width="200" height="50" class="btn" bind:tap="add" data-id='{{index}}'>
+                  <text style="font-size:20rpx">{{item.willBuy?'移除我的待选':'加入我的待选'}} </text>
+                </l-button> -->
+              </block>
+              <block wx:else>
+                <van-stepper  value="{{countMap[item.id]}}" min="0" max="{{item.stock}}" class="btn" catch:change="countChange" data-id='{{index}}' />
+                <!-- <l-counter count="{{countMap[item.id]}}" min="0" max="{{item.stock}}" class="btn" catch:change="countChange" data-id='{{index}}'/> -->
+              </block>
+
+
+              <!-- <block wx:if="{{!item.like}}">
+                <i-icon type="like" size="50" data-id="{{index}}" bindtap="clickLike" />
+                <text class="icon-plus" data-id="{{index}}" bindtap="clickLike">{{item.likeNum}}</text>
+              </block>
+              <block wx:else>
+                <i-icon type="like_fill" color="red" size="50" data-id="{{index}}" bindtap="clickLike" />
+                <text class="icon-plus" style="color:red" data-id="{{index}}" bindtap="clickLike">{{item.likeNum}}</text>
+              </block>
+              <block wx:if="{{!item.collection}}">
+                <i-icon type="collection" size="50" data-id="{{index}}" bindtap="clickCollection" />
+                <text class="icon-plus" data-id="{{index}}" bindtap="clickCollection">收藏</text>
+              </block>
+              <block wx:else>
+                <i-icon type="collection_fill" color="rgb(243, 144, 13)" size="50" data-id="{{index}}" bindtap="clickCollection" />
+                <text class="icon-plus" style="color:rgb(243, 144, 13)" data-id="{{index}}" bindtap="clickCollection">
+                  收藏
+                </text>
+              </block>
+              <block wx:if="{{dishShowType!='order'}}">
+                <l-button type="{{item.willBuy?'success':'warning'}}" width="200" height="50" class="btn" bind:tap="add" data-id='{{index}}'>
+                  <text style="font-size:20rpx">{{item.willBuy?'移除我的待选':'加入我的待选'}}</text>
+                </l-button>
+              </block>
+              <block wx:else>
+                <l-counter count="{{countMap[item.id]}}" min="0" max="{{item.stock}}" class="btn" bind:change="countChange" data-id='{{index}}' />
+              </block> -->
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

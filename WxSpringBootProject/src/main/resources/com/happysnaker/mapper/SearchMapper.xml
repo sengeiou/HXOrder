@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happysnaker.mapper.SearchMapper">
+    <cache size="512"></cache>
+    <select id="queryDishByName" resultType="java.lang.Integer">
+        SELECT id FROM dms_dish WHERE MATCH(`dish_name`) AGAINST(#{name} IN BOOLEAN MODE);
+    </select>
+
+    <select id="queryDishByTag" resultType="java.lang.Integer">
+        SELECT dish_id FROM dms_dish_tag WHERE MATCH(`tag`) AGAINST(#{name} IN BOOLEAN MODE);
+    </select>
+
+
+    <select id="queryStoreByName" resultType="java.lang.Integer">
+        SELECT id FROM sms_store WHERE MATCH(`store_name`) AGAINST(#{name} IN BOOLEAN MODE);
+    </select>
+</mapper>

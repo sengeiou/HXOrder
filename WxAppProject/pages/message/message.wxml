@@ -1,0 +1,33 @@
+<!-- pages/message/message.wxml -->
+<van-empty description="暂无消息" wx:if="{{!messages || messages.length == 0}}"/>
+
+<view class="page-body" hover-class="none" hover-stop-propagation="false">
+    <van-collapse value="{{ activeNames }}" bind:change="onChange">
+    <block wx:for="{{messages}}" wx:key="index">
+        <block wx:if="{{item.type == 0}}">
+            <van-collapse-item label="{{m1.format(item.createTime)}}" title="{{item.title}}" name="{{index}}" class="content" value="系统通知">
+                {{item.content}}
+            </van-collapse-item>
+        </block>
+
+        <block wx:elif="{{item.type == 1}}">
+            <van-collapse-item value="{{item.storeName}}" label="{{m1.format(item.createTime)}}" title="{{item.title}}" name="{{index}}" class="content" value="店家通知">
+                {{item.content}}
+            </van-collapse-item>
+        </block>
+    </block>
+    </van-collapse>
+</view>
+
+<wxs module="m1">
+  function format(ts) {
+    if (ts == null) {
+        return "NAN"
+    }
+    var d = getDate(ts)
+    return [d.getFullYear(), d.getMonth()+1, d.getDate()].join('-')
+      + ' '
+      + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':')
+  }
+  module.exports.format = format
+</wxs>

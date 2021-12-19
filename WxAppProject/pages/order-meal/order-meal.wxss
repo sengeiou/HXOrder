@@ -1,0 +1,68 @@
+page {
+    background-color: whitesmoke;
+    height: 100%;
+}
+
+
+.page-pody {
+    background-color: whitesmoke;
+}
+.map {
+    width: 100%;
+    height: 375rpx;
+}
+
+.search {
+    margin-bottom: 1rpx;
+}
+
+.place-card {
+    margin: 15px;
+    padding: 10px;
+    background-color: white;
+}
+
+.left-title {
+    font-weight:550;
+    font-size: 35rpx;
+    float: left;
+}
+
+.right-distance {
+    float: right;
+}
+
+.desc {
+    font-size: 25rpx;
+    color: rgb(51, 48, 48);
+}
+
+.radio {
+    margin-top: 20rpx;
+}
+.radio-item {
+    display: inline-block;
+    margin-top: 10rpx;
+}
+
+.way {
+    font-size: 30rpx;
+    font-weight: 500;
+}
+
+.btn {
+    padding: 16rpx;
+    margin: 15rpx;
+    margin-left: 40rpx;
+    margin-right: 40rpx;
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(6, 6, 218, 0.61);
+    color: white;
+    border-radius: 50rpx;
+    font-size: 25rpx;
+}
+
+.text {
+    padding-top: 5rpx;
+}

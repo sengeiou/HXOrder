@@ -1,0 +1,102 @@
+<!-- <van-empty description="这里空空如也" wx:if="{{!order || order.length == 0}}">
+  <van-button round type="danger" catch:tap="order" class="bottom-button">您还没有订单呢，点击立即前往点餐</van-button>
+</van-empty> -->
+<van-dialog id="van-dialog" />
+<van-empty description="这里空空如也" wx:if="{{!orders || orders.length == 0}}">
+  <van-button round type="danger" catch:tap="order" class="bottom-button">您还没有订单呢，点击立即前往点餐</van-button>
+</van-empty>
+<view class="page-body" hover-class="none" hover-stop-propagation="false" wx:else>
+    <van-tabs active="{{ active }}" bind:change="onChange" ellipsis="{{false}}" swipeable>
+        <block wx:for="{{status}}" wx:for-index="sIndex">
+            <van-tab title="{{item}}" wx:if="{{item && item != ''}}">
+                <block wx:for="{{orders}}" wx:key="{{id}}" wx:for-index="index">
+                    <view class="container" wx:if="{{item.orderType==(sIndex - 1) || sIndex == 0}}">
+                        <view class="card" hover-class="none" hover-stop-propagation="false">
+                            <i-cell-group>
+                                <van-cell value="{{status[item.orderType + 1]}}">
+                                    <view slot="title">
+                                        <van-icon name="expand" size="18" color="red" style="position:relative;top:2rpx"/>
+                                            {{item.storeName}}  
+                                    </view>
+                                </van-cell>
+
+                                <van-cell>
+                                    <view slot="title">
+                                        <van-row>
+                                            <van-col span="6">
+                                                <image src="https://tse3-mm.cn.bing.net/th/id/OIP-C.WQ4QeQNLtZPQnDEkh8bifAHaE8?pid=ImgDet&rs=1" style="width:160rpx;height:160rpx;position: relative;top: 6rpx;" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" />
+                                            </van-col>
+                                            <van-col span="18" class="col-18" data-id="{{index}}" bind:tap="showDetail">
+                                                <view class="text van-ellipsis" hover-class="none" hover-stop-propagation="false">
+                                                    订单编号：{{item.id}}
+                                                </view>
+                                                <view class="text" hover-class="none" hover-stop-propagation="false">
+                                                    完成时间：{{m1.format(order.finalTime)}}
+                                                </view>
+                                                <view class="text" hover-class="none" hover-stop-propagation="false">
+                                                    菜品数量：{{item.dishOrders.length}}
+                                                </view>
+                                                <view class="text" hover-class="none" hover-stop-propagation="false">
+                                                    总计：￥{{item.originalPrice}}
+                                                </view>
+                                            </van-col>
+                                        </van-row>
+                                    </view>
+                                </van-cell>
+
+                                <van-cell wx:if="{{(item.orderType>=2 && item.consumeType >= 2 && item.orderType != 9) || item.orderType == 7}}">
+                                    <view slot="title">
+                                        <view style="float:right">
+                                            <van-icon name="coupon" color="red"/>
+                                            实付：￥{{item.originalPrice - item.shopDiscount 
+        - item.couponDiscount + item.otherFee}}
+                                        </view>
+                                    </view>
+                                </van-cell>
+
+                                <van-cell>
+                                    <view slot="title">
+                                        <view class="btn" hover-class="none" hover-stop-propagation="false">
+                                            <van-button shape="semicircle" wx:if="{{item.orderType!=8}}"  style="margin-right:10rpx;font-size:small !important;" round size="small" type="danger" data-id="{{index}}" bind:tap="cancelOrder">
+                                                {{(item.orderType==7 || item.orderType==9)?'删除':'取消'}}订单
+                                            </van-button>
+                                            <van-button data-id="{{index}}" color="#7232dd" bind:tap="showDetail" round consumeType="error" plain="true" style="margin-right:10rpx;font-size:small !important;" size="small">
+                                                查看详情
+                                            </van-button>
+                                            <block wx:if="{{(item.consumeType==0 && item.orderType==1)||(item.consumeType==1&&item.orderType==1)}}">
+                                                <van-button data-id="{{index}}" bind:tap="continue" round consumeType="success" plain="true" style="margin-right:10rpx;font-size:small !important;" size="small" type="primary">
+                                                    继续点餐
+                                                </van-button>
+                                            </block>
+                                            <van-button style="height:30rpx;font-size:small !important;"  data-id="{{index}}"  bind:tap="showDetail" round consumeType="warning" size="small" wx:if="{{item.orderType==1}}" type="info">
+                                                立即支付
+                                            </van-button>
+                                            <van-button style="height:30rpx;font-size:small !important;"  round consumeType="warning" size="small" wx:if="{{item.orderType0==0&&item.consumeType==0}}">
+                                                前往下单
+                                            </van-button>
+                                        </view>
+                                    </view>
+                                </van-cell>
+                            </i-cell-group>
+                        </view>
+                    </view>
+                </block>    
+            </van-tab>
+        </block>
+        
+    </van-tabs>
+    <!-- <l-tabs bind:linchange="changeTabs" scrollable="true" animated="true" animated-for-line="true"> -->
+</view>
+<!-- orderType: 0待点餐, 1待支付, 2确认中，3备餐中，4待用餐，5待取餐，6配送中，7已完成，8取消确认中 -->
+<wxs module="m1">
+  function format(ts) {
+    if (ts == null) {
+        return "暂无数据"
+    }
+    var d = getDate(ts)
+    return [d.getFullYear(), d.getMonth()+1, d.getDate()].join('-')
+      + ' '
+      + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':')
+  }
+  module.exports.format = format
+</wxs>

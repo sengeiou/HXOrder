@@ -1,0 +1,27 @@
+{
+    "orderType": 2,
+    "storeId": 1,
+    "userId": "olDyO5OQmI2oXBR_8oNlF7xAeicc",
+    "consumeType": 1,
+    "table": -1,
+    "originalPrice": 22,
+    "shopDiscount": 2,
+    "dishes": [{
+        "id": 1,
+        "dishName": "凉拌木耳",
+        "dishPrice": 25,
+        "dishNum": 1,
+        "usedCount": 0
+    }, {
+        "id": 3,
+        "dishName": "香辣鸡",
+        "dishPrice": 28,
+        "dishNum": 1,
+        "usedCount": 0
+    }],
+    "store": {
+        "name": "南昌大学店",
+        "img": "../../images/PUS.png",
+        "id": 1
+    }
+} 

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "price-lists": "../price-lists/price-lists"
+  }
+}

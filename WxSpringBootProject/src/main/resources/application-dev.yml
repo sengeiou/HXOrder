@@ -1,0 +1,71 @@
+spring:
+  application:
+    name: service-swagger
+  datasource:
+    url: jdbc:mysql://localhost:3306/restaurant?useSSL=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&verifyServerCertificate=false
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: defaultDataSource
+  mybatis:
+    configuration:
+      map-underscore-to-camel-case: true # 驼峰转换
+      auto-mapping-behavior: partial
+    mapper-locations: classpath:mapper/*.xml
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtualHost: /
+    #确认消息已发送到交换机(Exchange) 可以把publisher-confirms: true 替换为  publisher-confirm-type: correlated
+    publisher-confirm-type: correlated
+    #确认消息已发送到队列(Queue)
+    publisher-returns: true
+    listener:
+      direct:
+        acknowledge-mode: manual
+        concurrency: 1 # 指定最小的消费者数量
+        max-concurrency: 10 #指定最大的消费者数量
+        prefetch: 1  #消费者每次从队列中取几个消息
+        retry:
+          initial-interval: 3000 #3秒后重试
+          enabled: true #启用发布重试
+          max-attempts: 10 #传递消息的最大尝试次数
+          max-interval: 10000 #尝试的最大时间间隔
+          multiplier: 1.0 #应用于先前传递重试时间间隔的乘数
+      simple:
+        # 每次从RabbitMQ获取的消息数量
+        prefetch: 1
+        default-requeue-rejected: false
+        # 每个队列启动的消费者数量
+        concurrency: 1
+        # 每个队列最大的消费者数量
+        max-concurrency: 1
+        # 手动签收ACK
+        acknowledge-mode: manual
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+
+
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    max-http-header-size: 8096
+server:
+  port: 8088
+  host: 127.0.0.1
+
+
+logging:
+  level:
+    com.happysnaker.mapper: debug
+
+
+
+
+
+

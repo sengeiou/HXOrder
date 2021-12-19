@@ -1,0 +1,145 @@
+<block wx:for="{{dishes}}" hover-class="none" hover-stop-propagation="false" wx:key="{{index}}" wx:for-index="index" wx:for-item="item">
+  <view class="inf-card {{dishShowType=='order'?'scroll-view-item':'no-used'}}" id='{{item.id}}'>
+    <!-- 展示左边栏 -->
+    <van-row>
+      <van-col span="8">
+        <van-image width="{{dishShowType=='order'?'70':'90'}}" height="{{dishShowType=='order'?'70':'90'}}" src="{{item.dishImg}}" />
+        <!-- <l-avatar shape="square" size="{{dishShowType=='order'?'175':'190'}}" src="{{item.dishImg}}" /> -->
+        <view>
+          <block wx:for="{{item.tags}}" wx:for-index="j" wx:for-item="val"  wx:if="{{dishShowType!='order'}}">
+          <van-tag class="tags" name="单个标签" color="{{color[(index + j + (j % 2 == 0 ? index:j)) % 5]}}">{{val}}</van-tag>
+        </block>
+        </view>
+        <!-- <van-tag class="van-tags" name="单个标签" color="blue">下酒菜</van-tag> -->
+      </van-col>
+
+
+      <van-col span="16" class="col-66" catch:tap="readMore" data-id="{{index}}">
+        <!-- <van-row> -->
+
+        <!-- 这一部分用 p 标签无法换行，不知道是不是样式的问题，本人不擅长 CSS -->
+        <!-- 如果是排行榜的话，头三名显示图标 -->
+          <block wx:if="{{dishShowType=='sort'}}" >
+            <image src="/images/top1.png" class="top-image" wx:if="{{index==0}}"/>
+            <image src="/images/top2.png" class="top-image" wx:if="{{index==1}}"/>
+            <image src="/images/top3.png" class="top-image" wx:if="{{index==2}}"/>
+          </block>
+           
+           <!-- 显示标题，如果是销售部且非头三名，显示 No 排名 -->
+          <text class="title {{dishShowType=='order'?'order-title':'no-used'}}"  selectable="true" space="true" decode="true"><block wx:if="{{dishShowType=='sort'}}"><text class="top" selectable="true" space="true" decode="true" wx:if="{{index>2&&index<10}}">No.{{index + 1}} &nbsp;</text><text class="top" selectable="true" space="true" decode="true" wx:if="{{index>=10}}" style="color: rgb(216, 123, 16)">No.{{index + 1}} &nbsp;</text></block>{{item.name}}</text>
+          
+          <!-- 换行 -->
+          <text>\n</text>
+          
+          <block wx:if="{{dishShowType=='recommend'}}">
+            <text style="color:red; font-size:24rpx;position: relative;">推荐指数：</text>
+            <van-rate value="{{ item.stars }}" readonly size="18" allow-half void-icon="star" void-color="#eee" bind:change="onChange"/>
+            <!-- <l-rate size="36" score="{{item.stars}}" disabled/><text>\n</text> -->
+            <text>\n</text>
+          </block>
+          
+          <!-- 如果不是点菜页面，则不显示库存，而显示单价 -->
+          <text class="sell" space="true" space="true" decode="true">本月销售量:{{item.sale}} &nbsp; <block wx:if="{{dishShowType!='order'}}">单价:￥{{item.price}}</block><block wx:else>剩余:{{item.stock}}份</block></text>
+          
+          <text wx:if="{{dishShowType=='sort'}}">\n</text>
+          <!-- <text>\n</text> -->
+
+          <van-tag class="van-tags" wx:if="{{dishShowType=='sort'}}" name="单个标签"  color="{{index<3?'red':index<10?'blue':'grey'}}">月销量排行榜第{{index+1}}</van-tag>
+         
+          <text>\n</text>
+
+          <!-- 菜品描述或推荐理由 -->
+          <text class="reason" user-select wx:if="{{dishShowType!='order'}}">{{dishShowType=='recommend'?'推荐理由: ' + item.reason:'菜品描述: ' + item.desc}}</text>
+        <!-- </van-row> -->
+
+          <text wx:if="{{dishShowType!='order'}}">\n</text>
+
+        <!-- 折扣部分 -->
+        <block  wx:if="{{dishShowType=='order'}}">
+          <view style="font-size:28rpx;color:#9C27B0;">
+
+            <van-icon name="fire-o"  color="red"/>
+           
+            <block wx:if="{{item.discount.type==0}}">
+            </block>
+
+            <block wx:if="{{item.discount.type==1}}">
+              {{item.discount.val}}折
+            </block>
+
+            <block wx:if="{{item.discount.type==2}}">
+              立减{{item.discount.val}}元
+            </block>
+
+            <!-- 剩余可享受次数需要减去用户已加入购物车的数量，这是一个复杂的流程，因此我们直接传入购物车隐藏背后的复杂性 -->
+            <text class="cnt"  wx:if="{{item.discount.type!=0}}" >今日可享受{{item.discount.count - (cart[item.id] ? cart[item.id].discountUsedCount:0)}}次</text>
+          </view>
+
+          <view style="font-size:32rpx;" class="p"><text class="original-price" space="emsp" wx:if="{{item.discount.type!=0&&item.discount.type!=3}}">￥{{item.price}} </text>
+            <!-- 无折扣 -->
+            <block wx:if="{{item.discount.type==0}}">
+              ￥{{item.price}}
+            </block>
+
+            <!-- 折扣优惠 -->
+            <block wx:if="{{item.discount.type==1}}">
+              ￥{{item.price*item.discount.val/10}}
+            </block>
+
+            <!-- 立减优惠 -->
+            <block wx:if="{{item.discount.type==2}}">
+              ￥{{item.price-item.discount.val}}
+            </block>
+
+            <!-- 保留以后使用 -->
+            <block wx:if="{{item.discount.type==3}}">
+              ￥{{item.price}}
+            </block>
+          </view>
+        </block>
+        
+      </van-col>
+    </van-row>
+
+    <!-- 底部 -->
+    <view class="inf-icon footer">
+      <block wx:if="{{!item.like}}">
+        <van-icon name="like-o" size="20" data-id="{{index}}" catchtap="clickLike" style="position:relative;top:3px;"/>
+        <!-- <i-icon type="like" size="50" data-id="{{index}}" catchtap="clickLike"/> -->
+        <text class="icon-plus" data-id="{{index}}" catchtap="clickLike">{{item.likeNum}}</text>
+      </block>
+      <block wx:else>
+        <van-icon name="like" color="red" data-id="{{index}}" size="20" catchtap="clickLike" style="position:relative;top:3px;"/>
+        <!-- <i-icon type="like_fill" color="red" size="50" data-id="{{index}}" catchtap="clickLike"/> -->
+        <text class="icon-plus" style="color:red" data-id="{{index}}" catchtap="clickLike">{{item.likeNum}}</text>
+      </block>
+
+      <block wx:if="{{!item.collection}}">
+        <van-icon name="star-o" size="20" data-id="{{index}}" catchtap="clickCollection" style="position:relative;top:3px;"/>
+        <!-- <i-icon type="collection"  size="50" data-id="{{index}}" catchtap="clickCollection"/> -->
+        <text class="icon-plus" data-id="{{index}}" catchtap="clickCollection">收藏</text>
+      </block>
+
+      <block wx:else>
+        <!-- <i-icon type="collection_fill" color="rgb(243, 144, 13)" size="50" data-id="{{index}}" catchtap="clickCollection"/> -->
+        
+        <van-icon name="star" data-id="{{index}}" color="rgb(243, 144, 13)" size="20" catchtap="clickCollection" style="position:relative;top:3px;"/>
+        <text class="icon-plus" style="color:rgb(243, 144, 13)" data-id="{{index}}" catchtap="clickCollection">收藏</text>
+      </block>
+      
+      <block wx:if="{{dishShowType!='order'}}">
+
+        <van-button  type="{{!item.willBuy?'primary':'warning'}}" size="small" class="btn" bind:tap="add" data-id='{{index}}'>
+          <text style="font-size:20rpx">{{item.willBuy?'移除我的待选':'加入我的待选'}} </text>
+        </van-button>
+        <!-- <l-button type="{{item.willBuy?'success':'warning'}}" width="200" height="50" class="btn" bind:tap="add" data-id='{{index}}'>
+          <text style="font-size:20rpx">{{item.willBuy?'移除我的待选':'加入我的待选'}} </text>
+        </l-button> -->
+      </block>
+      <block wx:else>
+        <!-- <van-stepper value="{{countMap[item.id]}}" min="0" max="{{item.stock}}" class="btn" catch:change="countChange" data-id='{{index}}' /> -->
+        <van-stepper  value="{{cart[item.id].num}}" min="0" max="{{item.stock}}" class="btn" catch:change="countChange" data-id='{{index}}' />
+      </block>
+    </view>
+  </view>
+</block>

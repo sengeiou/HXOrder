@@ -1,0 +1,25 @@
+/* pages/user/user.wxss */
+page{
+    height: 100%;
+    background-color: whitesmoke;
+}
+
+.page-body {
+    font-size: 32rpx;
+    text-align: center;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    margin: 30rpx;
+    padding: 30rpx;
+}
+
+.page-body .fix {
+    margin-top: 30rpx;
+}
+
+.no-used {
+    height: 30rpx;
+}

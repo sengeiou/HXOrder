@@ -1,0 +1,41 @@
+<view class="page-body" hover-class="none" hover-stop-propagation="false">
+    <view class="img" hover-class="none" hover-stop-propagation="false">
+        <image src="https://tse1-mm.cn.bing.net/th/id/R-C.22ac49d8a93c3076232d1d2e515851fd?rik=f1LOQ8PveEplYg&riu=http%3a%2f%2fb.zol-img.com.cn%2fdesk%2fbizhi%2fimage%2f6%2f960x600%2f1429773392845.jpg&ehk=Z2qe5uGkiEW%2fYzKv5q2d12gpES2aXj93vw1Ky9K3MhY%3d&risl=&pid=ImgRaw&r=0" mode="aspectFit|aspectFill|widthFix" lazy-load="false"></image>
+    </view>
+    <view class="main-container" hover-class="none" hover-stop-propagation="false">
+        <view class="userInfo">
+            <avatar size="120" src="{{userInfo.avatarUrl}}" />
+            <view class="nickName" bind:tap="getUserProfile" hover-class="none" hover-stop-propagation="false">
+                <text>{{userInfo.nickName}}</text>
+            </view>
+            <view class="grid" hover-class="none" hover-stop-propagation="false">
+                <van-grid column-num="3" border="{{ false }}">
+                    <van-grid-item use-slot>
+                        <view style="color:red" class="num">{{user.rank}}</view>
+                        <view class="text">会员等级</view>
+                    </van-grid-item>
+                    <van-grid-item use-slot>
+                        <view style="color:red" class="num">{{user.integral}}</view>
+                        <view class="text">积分</view>
+                    </van-grid-item>
+                    <van-grid-item use-slot>
+                        <view style="color:red" class="num">{{user.wallet}}</view>
+                        <view class="text">钱包(元)</view>
+                    </van-grid-item>
+                </van-grid>
+            </view>
+        </view>
+        <view class="section" hover-class="none" hover-stop-propagation="false">
+            <text class="my">我的功能：</text>
+            <van-grid square>
+                <block wx:for="{{grids}}">
+                    <van-grid-item icon="{{item.icon}}" icon-color ="orange"
+                    text="{{item.text}}" 
+                    link-type="navigateTo" 
+                    url="{{item.url}}" 
+                    badge="{{item.text == '消息' ? msg : ''}}"/>
+                </block>
+            </van-grid>
+        </view>
+    </view>
+</view>

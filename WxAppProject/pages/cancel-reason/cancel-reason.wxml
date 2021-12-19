@@ -1,0 +1,12 @@
+<view class="page-body">
+    <van-cell-group>
+        <van-field value="{{ phone }}" bind:change="onChangePhone" required clearable label="您的电话" placeholder="请填写您的11位电话号码" />
+        <van-field value="{{ reason }}" bind:change="onChangeReason" label="取消原因" type="textarea" placeholder="请输入您的退货原因" autosize border="{{ false }}" />
+        <view style="padding:15px">
+            <van-button type="info" style="margin-right:50rpx" hairline bind:tap="cancelOps">取消操作</van-button>
+            <van-button type="primary" hairline bind:tap="onSubmit">提交申请</van-button>
+        </view>
+    </van-cell-group>
+
+    <van-dialog id="van-dialog" />
+</view>

@@ -1,0 +1,109 @@
+<van-dialog id="van-dialog" />
+<view class="page-pody" hover-class="none" hover-stop-propagation="false">
+    <view class="search" hover-class="none" hover-stop-propagation="false">
+        <van-search value="{{ seartchValue }}" input-align="center" placeholder="请输入搜索关键词" />
+    </view>
+    <van-tabs bind:change="changeTabs" active-color="#0094ff">
+        <van-tab title="定位附近门店">
+            <view class="map" hover-class="none" hover-stop-propagation="false">
+                <map id="mapId" class="map" latitude="{{latitude}}" show-location longitude="{{longitude}}" bindmarkertap="onMarkerTap" bindcallouttap="onCalloutTap" bindlabeltap="onLabelTap" markers='{{markers}}' scale="16"></map>
+            </view>
+            <block wx:for="{{stores}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}">
+                <view class="place-card" hover-class="none" hover-stop-propagation="false" data-id='{{index}}' bind:tap="click0">
+                    <van-row>
+                        <view class="left-title" hover-class="none" hover-stop-propagation="false">
+                            {{item.name}}
+                        </view>
+                        <view class="right-distance desc" hover-class="none" hover-stop-propagation="false">
+                            距离您{{item.dis}}km
+                        </view>
+                    </van-row>
+                    <van-row>
+                        <text class="desc" selectable="false" space="false" decode="false">{{item.address}}\n营业时间：{{item.time}}</text>
+                    </van-row>
+                    <block wx:if="{{index == showCurrentIndex}}">
+                        <view class="radio" hover-class="none" hover-stop-propagation="false">
+                            <view class="way" >消费方式</view>
+                            <van-radio-group value="{{ radioCurrent }}" bind:change="radioChange">
+                                <van-radio class="radio-item" name="1" check-color="#0094ff" color="orange" >
+                                    支付成功后
+                                    <text style="color:orange">到店内消费</text>
+                                </van-radio>
+                                <van-radio  class="radio-item" name="2" check-color="#0094ff" color="orange" >
+                                    支付成功后
+                                    <text style="color:orange">到店内自取</text>
+                                </van-radio>
+                                <van-radio class="radio-item" name="3" check-color="#0094ff" color="orange" disabled="{{!item.supportTakeout}}">
+                                    支付成功后
+                                    <text style="{{!item.supportTakeout ? '' : 'color:orange'}}">由外卖配送</text>
+                                </van-radio>
+                            </van-radio-group>
+                        </view>
+                        <van-grid column-num="3">
+                            <van-grid-item icon="service-o" icon-color="rgba(6, 6, 218, 0.61)" text="联系我们" data-id='{{index}}'  bind:tap="click1" />
+                            <van-grid-item icon="{{item.collection ? 'like' : 'like-o'}}" icon-color="rgba(6, 6, 218, 0.61)" text="收藏该店" data-id='{{index}}'  bind:tap="click2"/>
+                            <van-grid-item icon="guide-o" icon-color="rgba(6, 6, 218, 0.61)" text="到这去" data-id='{{index}}'   bind:tap="click3"/>
+                        </van-grid>
+
+                        <view class="btn" hover-class="none" data-id="{{index}}" hover-stop-propagation="false" bind:tap="click4">
+                            立即点餐
+                        </view>
+                    </block>
+                </view>
+            </block>
+        </van-tab>
+
+
+        <van-tab title="我的收藏">
+            <van-empty description="这里空空如也" wx:if="{{!collectedStores || collectedStores.length == 0}}"/>
+            <block wx:for="{{collectedStores}}" wx:key="{{index}}">
+                <view class="place-card" hover-class="none" hover-stop-propagation="false" data-id='{{item}}' bind:tap="favoriteClick0">
+                    <van-row>
+                        <view class="left-title" hover-class="none" hover-stop-propagation="false">
+                            {{stores[item].name}}
+                        </view>
+                        <view class="right-distance desc" hover-class="none" hover-stop-propagation="false">
+                            距离您{{stores[item].dis}}km
+                        </view>
+                    </van-row>
+                    <van-row>
+                        <text class="desc">{{stores[item].address}}\n营业时间：{{stores[item].time}} </text>
+                    </van-row>
+                    <block wx:if="{{item == favoriteShowCurrentIndex}}">
+                        <view class="radio" hover-class="none" hover-stop-propagation="false">
+                            <view class="way" hover-class="none" hover-stop-propagation="false">
+                                消费方式
+                            </view>
+
+                            <van-radio-group value="{{ radioCurrent }}" bind:change="radioChange">
+                                <van-radio class="radio-item" name="f-1" check-color="#0094ff" color="orange" >
+                                    支付成功后
+                                    <text style="color:orange">到店内消费</text>
+                                </van-radio>
+                                <van-radio  class="radio-item" name="f-2" check-color="#0094ff" color="orange" >
+                                    支付成功后
+                                    <text style="color:orange">到店内自取</text>
+                                </van-radio>
+                                <van-radio class="radio-item" name="f-3" check-color="#0094ff" color="orange" disabled="{{!item.supportTakeout}}">
+                                    支付成功后
+                                    <text style="{{!item.supportTakeout ? '' : 'color:orange'}}">由外卖配送</text>
+                                </van-radio>
+                            </van-radio-group>
+                        </view>
+                        <van-grid>
+                            <!-- <l-grid-item wx:for="{{4}}"></l-grid-item> -->
+                            <van-grid column-num="3">
+                                <van-grid-item icon="service-o" icon-color="rgba(6, 6, 218, 0.61)" text="联系我们" data-id='{{item}}'  bind:tap="click1" />
+                                <van-grid-item icon="{{stores[item].collection ? 'like' : 'like-o'}}" icon-color="rgba(6, 6, 218, 0.61)" text="收藏该店" data-id='{{item}}'  bind:tap="click2"/>
+                                <van-grid-item icon="guide-o" icon-color="rgba(6, 6, 218, 0.61)" text="到这去" data-id='{{item}}'   bind:tap="click2"/>
+                            </van-grid>
+                        </van-grid>
+                        <view class="btn" hover-class="none" data-id="{{item}}" hover-stop-propagation="false" bind:tap="click4">
+                            立即点餐
+                        </view>
+                    </block>
+                </view>
+            </block>
+        </van-tab>
+    </van-tabs>
+</view>

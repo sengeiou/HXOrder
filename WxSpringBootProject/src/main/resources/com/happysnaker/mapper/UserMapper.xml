@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happysnaker.mapper.UserMapper">
+    <cache size="512"></cache>
+
+    <select id="queryUser" resultType="com.happysnaker.pojo.User">
+        SELECT * FROM `ums_user` WHERE id=#{userId};
+    </select>
+
+    <select id="queryCollectedDish" resultType="java.lang.Integer">
+        SELECT dish_id FROM ums_collected_dish WHERE user_id = #{userId};
+    </select>
+
+    <select id="queryCollectedStore" resultType="java.lang.Integer">
+        SELECT store_id FROM ums_collected_store WHERE user_id = #{userId};
+    </select>
+
+    <select id="queryFavoriteDish" resultType="java.lang.Integer">
+        SELECT dish_id FROM ums_favorite_dish WHERE user_id = #{userId};
+    </select>
+
+    <select id="queryWillBuyDish" resultType="java.lang.Integer">
+        SELECT dish_id FROM ums_willbuy_dish WHERE user_id = #{userId};
+    </select>
+
+    <select id="queryUserUsedDiscountCountInAllDish" resultType="java.util.HashMap">
+        SELECT * FROM ums_user_used_discount_count
+        WHERE user_id=#{userId};
+    </select>
+
+    <update id="updateUsedDiscountCountByANewVal">
+        UPDATE ums_user_used_discount_count SET count = #{val}
+        WHERE user_id=#{userId} AND dish_id = #{dishId};
+    </update>
+
+    <update id="updateUsedDiscountCount">
+        UPDATE ums_user_used_discount_count SET count = count + #{val}
+        WHERE user_id=#{userId} AND dish_id = #{dishId};
+    </update>
+
+
+    <insert id="insertUsedDiscountCount">
+        INSERT INTO ums_user_used_discount_count SELECT #{userId}, #{dishId}, #{val};
+    </insert>
+
+    <insert id="addUser" parameterType="com.happysnaker.pojo.User">
+        INSERT INTO ums_user(id, `rank`, integral, wallet, name, phone)
+        VALUES(#{id}, #{rank}, #{integral}, #{wallet}, #{name}, #{phone});
+    </insert>
+
+    <update id="updateUser" parameterType="com.happysnaker.pojo.User">
+        UPDATE ums_user SET
+        `rank`=#{rank}, integral=#{integral},
+         wallet=#{wallet}, name=#{name}, phone=#{phone};
+    </update>
+
+    <insert id="addCollectedDish">
+        INSERT INTO ums_collected_dish(user_id, dish_id) VALUES(#{userId}, #{dishId});
+    </insert>
+
+    <insert id="addCollectedStore">
+        INSERT INTO ums_collected_store(user_id, store_id) VALUES(#{userId}, #{storeId});
+    </insert>
+
+    <insert id="addFavoriteDish">
+        INSERT INTO ums_favorite_dish(user_id, dish_id) VALUES(#{userId}, #{dishId});
+    </insert>
+
+    <insert id="addWillBuyDish">
+        INSERT INTO ums_willbuy_dish(user_id, dish_id) VALUES(#{userId}, #{dishId});
+    </insert>
+
+
+
+    <delete id="removeCollectedDish">
+        DELETE FROM ums_collected_dish WHERE user_id=#{userId} AND dish_id=#{dishId};
+    </delete>
+
+    <delete id="removeCollectedStore">
+        DELETE FROM ums_collected_store WHERE user_id=#{userId} AND store_id=#{storeId};
+    </delete>
+
+    <delete id="removeFavoriteDish">
+        DELETE FROM ums_favorite_dish WHERE user_id=#{userId} AND dish_id=#{dishId};
+    </delete>
+
+    <delete id="removeWillBuyDish">
+        DELETE FROM ums_willbuy_dish WHERE user_id=#{userId} AND dish_id=#{dishId};
+    </delete>
+
+</mapper>

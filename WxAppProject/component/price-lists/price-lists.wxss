@@ -1,0 +1,55 @@
+.body {
+    font-size: 25rpx;
+    padding-left: 20rpx;
+}
+
+
+.left {
+    font-size: 30rpx;
+    line-height: 48rpx;
+}
+
+.fix {
+    list-style:decimal;
+    position: relative;
+    padding: 4rpx;
+}
+.right {
+    position: absolute;
+    right: 10rpx;
+    top: 0;
+    font-size: 31rpx;
+    line-height: 46rpx;
+    
+    
+}
+.discount {
+    position: relative;
+    list-style: cambodian !important;
+}
+
+.none {
+    position: relative;
+    list-style: none;
+    height: 20rpx;
+    padding: 15rpx;
+}
+
+.dis-icon {
+    font-size: 25rpx;
+    padding: 3rpx;
+    background-color: rgb(221, 11, 11);
+    color: white;
+}
+
+.dis {
+    color: red;
+}
+
+.tot {
+    font-weight: bold;
+    font-size: 30rpx;
+}
+
+
+

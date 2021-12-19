@@ -1,0 +1,36 @@
+/**app.wxss**/
+@import '/dist/common/index.wxss';
+
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+  Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+  sans-serif;
+}
+view, text {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  padding-right: 30rpx;
+  padding-left: 30rpx;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top:16rpx;
+}
+/* @font-face {
+  font-weight: normal;
+  font-family: 'vant-icon-temp';
+  font-style: normal;
+  font-display: auto;
+  src: url('https://img01.yzcdn.cn/vant/vant-icon-84f687.woff2') format('woff2'),
+    url('https://img01.yzcdn.cn/vant/vant-icon-84f687.woff') format('woff'),
+    url('https://img01.yzcdn.cn/vant/vant-icon-84f687.ttf') format('truetype');
+}
+
+
+.van-icon {
+  font-family: 'vant-icon-temp' !important;
+}  */
+
+

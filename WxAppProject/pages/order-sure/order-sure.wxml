@@ -1,0 +1,104 @@
+<van-dialog id="van-dialog" />
+<van-submit-bar price="{{(order.originalPrice - order.shopDiscount) * 100}}" button-text="提交订单" bind:submit="buy" />
+<view class="page-body" hover-class="none" hover-stop-propagation="false">
+    <view class="order">
+        <view class="container" hover-class="none" hover-stop-propagation="false">
+            <van-cell-group>
+                <van-cell>
+                    <view slot="title">
+                        <van-icon name="bag" color="orange" size="20" />
+                        订单详情
+                        <view class="lists" hover-class="none" hover-stop-propagation="false" style="padding:0;">
+                            <price-lists totalPrice="{{order.originalPrice}}" shopDiscount="{{order.shopDiscount}}" couponDiscount="{{couponDiscount}}" dishOrders="{{order.dishOrders}}"></price-lists>
+                        </view>
+                    </view>
+                </van-cell>
+                <van-cell value="{{order.store.name}}">
+                    <view slot="title">
+                        <van-icon name="wap-home" color="orange" size="20" />
+                        门店
+                    </view>
+                </van-cell>
+                <van-cell value="{{}}">
+                    <view slot="title">
+                        <van-icon name="award" color="orange" size="20" />
+                        口味(必选项)
+                        <van-radio-group value="{{ radioCurrent }}" bind:change="radioChange" style=" text-align: center;display:flex;flex:1;">
+                            <van-radio class="radio-item" name="1" checked-color="#0094ff">
+                                <text style="color:#921951;;margin-right:20rpx;">不辣</text>
+                            </van-radio>
+                            <van-radio class="radio-item" name="2" checked-color="#0094ff">
+                                <text style="color:#8c8208;;margin-right:20rpx;">微辣</text>
+                            </van-radio>
+                            <van-radio class="radio-item" name="3" checked-color="#0094ff">
+                                <text style="color:blue;margin-right:20rpx;">中辣</text>
+                            </van-radio>
+                            <van-radio class="radio-item" name="4" checked-color="#0094ff">
+                                <text style="color:red;margin-right:20rpx;">特辣</text>
+                            </van-radio>
+                        </van-radio-group>
+                    </view>
+                </van-cell>
+                <van-cell value="{{map[order.consumeType]}}">
+                    <view slot="title">
+                        <van-icon name="shop" color="orange" size="20" />
+                        消费类型
+                    </view>
+                </van-cell>
+                <van-cell value="{{waitTime + '分钟'}}">
+                    <view slot="title">
+                        <van-icon name="info" color="orange" size="20" />
+                        预估排队时间
+                    </view>
+                </van-cell>
+                <van-cell label="{{address.address ? address.address:'暂未选择收货地址'}}" is-link wx:if="{{order.consumeType == 3}}" link-type="navigateTo" url="/pages/address/address?tt=1">
+                    <view slot="title">
+                        <van-icon name="info" color="orange" size="20" />
+                        收货地址
+                    </view>
+                </van-cell>
+                <van-cell value="该功能暂未开发">
+                    <view slot="title">
+                        <van-icon name="send-gift" color="orange" size="20" />
+                        可用券
+                    </view>
+                </van-cell>
+                <block wx:if="{{order.consumeType==0}}">
+                    <van-cell value="{{order.table}}">
+                        <view slot="title">
+                            <van-icon name="bag" color="orange" size="20" />
+                            用餐桌号
+                        </view>
+                    </van-cell>
+                </block>
+                <block wx:elif="{{order.consumeType==2}}">
+                    <picker mode="time" value="{{time}}" start="{{time}}" end="20:20" bindchange="bindTimeChange">
+                        <van-cell value="{{time+'(尽快制作)'}}">
+                            <view slot="title">
+                                <van-icon name="cluster" color="orange" size="20" />
+                                预定时间
+                            </view>
+                        </van-cell>
+                    </picker>
+                </block>
+                <block wx:elif="{{order.consumeType==1}}">
+                    <picker mode="time" value="{{time}}" start="{{time}}" end="20:20" bindchange="bindTimeChange">
+                        <van-cell value="{{time}}">
+                            <view slot="title">
+                                <van-icon name="cluster" color="orange" size="20" />
+                                预定到店时间
+                            </view>
+                        </van-cell>
+                    </picker>
+                </block>
+                <van-cell>
+                    <view slot="title">
+                        <van-icon name="comment" color="orange" size="20" />
+                        备注
+                        <van-field value="{{ remark }}" type="textarea" placeholder="如您是到店用餐，建议您备注用餐人数" autosize border="{{ false }}" bind:change="onRemarkChange" />
+                    </view>
+                </van-cell>
+            </van-cell-group>
+        </view>
+    </view>
+</view>

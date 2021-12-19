@@ -1,0 +1,142 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/order-meal/order-meal",
+    "pages/order/order",
+    "pages/user/user",
+    "pages/dish-order/dish-order",
+    "pages/order-sure/order-sure",
+    "pages/order-detail/order-detail",
+    "pages/order-ok/order-ok",
+    "pages/dish-detail/dish-detail",
+    "pages/collection/collection",
+    "pages/address/address",
+    "pages/message/message",
+    "pages/member/member",
+    "pages/integral/integral",
+    "pages/cancel-reason/cancel-reason"
+  ],
+
+  "usingComponents": {
+    "card": "/component/card/index",
+    "avatar": "/component/avatar/index",
+    "steps": "/component/steps/index",
+    "step": "/component/step/index",
+    "badge": "/component/badge/index",
+    "price-lists": "/component/price-lists/price-lists",
+    "dish": "/component/dish/dish",
+    "combo": "/component/combo/combo",
+    "van-popup": "/dist/popup/index",
+    "van-button": "/dist/button/index",
+    "van-row": "/dist/row/index",
+    "van-col": "/dist/col/index",
+    "van-cell": "/dist/cell/index",
+    "van-cell-group": "/dist/cell-group/index",
+    "van-config-provider": "/dist/config-provider/index",
+    "van-icon": "/dist/icon/index",
+    "van-image": "/dist/image/index",
+    "van-toast": "/dist/toast/index",
+    "van-transition": "/dist/transition/index",
+    "van-checkbox": "/dist/checkbox/index",
+    "van-checkbox-group": "/dist/checkbox-group/index",
+    "van-datetime-picker": "/dist/datetime-picker/index",
+    "van-field": "/dist/field/index",
+    "van-picker": "/dist/picker/index",
+    "van-radio": "/dist/radio/index",
+    "van-radio-group": "/dist/radio-group/index",
+    "van-rate": "/dist/rate/index",
+    "van-search": "/dist/search/index",
+    "van-slider": "/dist/slider/index",
+    "van-stepper": "/dist/stepper/index",
+    "van-uploader": "/dist/uploader/index",
+    "van-action-sheet": "/dist/action-sheet/index",
+    "van-dialog": "/dist/dialog/index",
+    "van-dropdown-menu": "/dist/dropdown-menu/index",
+    "van-dropdown-item": "/dist/dropdown-item/index",
+    "van-loading": "/dist/loading/index",
+    "van-notify": "/dist/notify/index",
+    "van-overlay": "/dist/overlay/index",
+    "van-share-sheet": "/dist/share-sheet/index",
+    "van-swipe-cell": "/dist/swipe-cell/index",
+    "van-collapse": "/dist/collapse/index",
+    "van-collapse-item": "/dist/collapse-item/index",
+    "van-count-down": "/dist/count-down/index",
+    "van-divider": "/dist/divider/index",
+    "van-empty": "/dist/empty/index",
+    "van-notice-bar": "/dist/notice-bar/index",
+    "van-progress": "/dist/progress/index",
+    "van-skeleton": "/dist/skeleton/index",
+    "van-steps": "/dist/steps/index",
+    "van-sticky": "/dist/sticky/index",
+    "van-tag": "/dist/tag/index",
+    "van-grid": "/dist/grid/index",
+    "van-grid-item": "/dist/grid-item/index",
+    "van-index-bar": "/dist/index-bar/index",
+    "van-index-anchor": "/dist/index-anchor/index",
+    "van-nav-bar": "/dist/nav-bar/index",
+    "van-sidebar": "/dist/sidebar/index",
+    "van-sidebar-item": "/dist/sidebar-item/index",
+    "van-tab": "/dist/tab/index",
+    "van-tabs": "/dist/tabs/index",
+    "van-tabbar": "/dist/tabbar/index",
+    "van-tabbar-item": "/dist/tabbar-item/index",
+    "van-card": "/dist/card/index",
+    "van-area": "/dist/area/index",
+    "van-submit-bar": "/dist/submit-bar/index",
+    "van-goods-action": "/dist/goods-action/index",
+    "van-goods-action-icon": "/dist/goods-action-icon/index",
+    "van-goods-action-button": "/dist/goods-action-button/index",
+    "van-panel": "/dist/panel/index"
+  },
+
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#0094ff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#023456"
+  },
+
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#FFA014",
+    "backgroundColor": "#FFF0F5",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [{
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/首页-未选中.png",
+        "selectedIconPath": "images/首页-选中.png"
+      },
+      {
+        "pagePath": "pages/order-meal/order-meal",
+        "text": "点餐",
+        "iconPath": "images/点餐-未选中.png",
+        "selectedIconPath": "images/点餐-选中.png"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "订单",
+        "iconPath": "images/订单-未选中.png",
+        "selectedIconPath": "images/订单-选中.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "images/我的-未选中.png",
+        "selectedIconPath": "images/我的-选中.png"
+      }
+    ]
+  },
+
+
+  "sitemapLocation": "sitemap.json"
+
+}

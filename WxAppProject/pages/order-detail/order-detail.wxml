@@ -1,0 +1,132 @@
+<!-- pages/order-detail/order-detail.wxml -->
+<van-dialog id="van-dialog" />
+<view class="page-body" hover-class="none" hover-stop-propagation="false">
+    <view wx:if="{{order.orderType == 1 && order.consumeType <= 1}}">
+        <van-submit-bar price="{{order.actuallyPrice * 100}}" button-text="{{order.paymentStatus ? '立即支付': '管理员未确认'}}" disabled="{{!order.paymentStatus}}" bind:submit="onSubmit" />
+    </view>
+    <view wx:if="{{order.orderType == 0}}">
+        <van-submit-bar price="{{order.actuallyPrice * 20}}" button-text="支付保证金" bind:submit="onSubmit" />
+    </view>
+    <view wx:if="{{order.orderType == 1 && order.consumeType >= 2}}">
+        <van-submit-bar price="{{order.actuallyPrice * 100}}" button-text="立即支付" bind:submit="onSubmit" />
+    </view>
+    <view class="section" hover-class="none" hover-stop-propagation="false" wx:if="{{order.consumeType==3}}">
+        <view class="main" hover-class="none" hover-stop-propagation="false">
+            <view class="left" style="height:{{leftHeight+'px'}}">
+                <van-icon name="location" size="26" color="red" style="top: {{leftHeight/2}}px;position: absolute;" />
+            </view>
+            <view class="right">
+                <text>
+                    {{order.address.name}} {{order.address.phone}}\n配送地址：{{order.address.address}}
+                </text>
+            </view>
+        </view>
+    </view>
+    <view class="section" hover-class="none" hover-stop-propagation="false">
+        <view class="store" hover-class="none" hover-stop-propagation="false">
+            <image src="{{order.storeImg}}" style="width:50rpx;height:50rpx;position: relative;top: 12rpx;" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" />
+            {{order.storeName}}
+        </view>
+        <text style="font-size:28rpx;margin-top:20rpx;font-weight:bold;">订单详情：</text>
+        <view class="container" hover-class="none" hover-stop-propagation="false">
+            <price-lists class="hidden" dishOrders='{{order.dishOrders}}' otherFee='{{order.otherFee}}' couponDiscount="{{order.couponDiscount}}" totalPrice="{{order.originalPrice}}" shopDiscount="{{order.shopDiscount}}"></price-lists>
+        </view>
+    </view>
+    <view class="section" hover-class="none" hover-stop-propagation="false" wx:if="{{order.orderType <= 7}}">
+        <text style="font-size:28rpx;font-weight:bold">订单状态：</text>
+        <view style="padding-top: 34rpx;">
+            <block class="fix" wx:if="{{order.consumeType==0}}">
+                <steps active-index="{{order.nowStatus}}">
+                    <step title="确认中" describe=""></step>
+                    <step title="待支付" describe=""></step>
+                    <step title="已完成" describe=""></step>
+                </steps>
+            </block>
+            <block class="fix" wx:elif="{{order.consumeType==1}}">
+                <steps active-index="{{order.nowStatus}}">
+                    <step title="支付保证金" describe=""></step>
+                    <step title="确认中" describe=""></step>
+                    <step title="备餐中" describe=""></step>
+                    <step title="待用餐" describe=""></step>
+                    <step title="待支付" describe=""></step>
+                    <step title="已完成" describe=""></step>
+                </steps>
+            </block>
+            <block class="fix" wx:elif="{{order.consumeType==2}}">
+                <steps active-index="{{order.nowStatus}}">
+                    <step title="待支付" describe=""></step>
+                    <step title="确认中" describe=""></step>
+                    <step title="备餐中" describe=""></step>
+                    <step title="待取餐" describe=""></step>
+                    <step title="已完成" describe=""></step>
+                </steps>
+            </block>
+            <block class="fix" wx:elif="{{order.consumeType==3}}">
+                <steps active-index="{{order.nowStatus}}">
+                    <step title="待支付" describe=""></step>
+                    <step title="确认中" describe=""></step>
+                    <step title="备餐中" describe=""></step>
+                    <step title="配送中" describe=""></step>
+                    <step title="已完成" describe=""></step>
+                </steps>
+            </block>
+        </view>
+    </view>
+    <view class="section" hover-class="none" hover-stop-propagation="false" wx:else>
+        <text style="font-size:28rpx;font-weight:bold">订单状态：</text>
+        <view style="padding-top: 34rpx;">
+            <block class="fix">
+                <steps active-index="{{order.orderType - 8}}">
+                    <step title="取消确认中" describe=""></step>
+                    <step title="已取消" describe=""></step>
+                </steps>
+            </block>
+        </view>
+    </view>
+    <view class="section" hover-class="none" hover-stop-propagation="false" wx:if="{{order.orderType == 0||(order.orderType==1&&order.consumeType>=2)}}">
+        <text style="font-size:28rpx;font-weight:bold">订单将于 {{m1.format(order.createTime + 60000 * 10)}} 自动取消</text>
+    </view>
+    <view class="section" hover-class="none" hover-stop-propagation="false" wx:if="{{order.consumeType == 1 && order.margin != 0}}">
+        <text style="font-size:28rpx;font-weight:bold">已支付保证金：￥{{order.margin}}</text>
+    </view>
+    <view class="section" hover-class="none" hover-stop-propagation="false" wx:if="{{order.consumeType == 2}}">
+        <text style="font-size:28rpx;font-weight:bold">取餐码：</text>
+        <view style="text-align: center;">
+                <text > {{order.fetchMealCode}} </text>
+        </view>
+    </view>
+    <view class="section" hover-class="none" hover-stop-propagation="false">
+        <view class="row" hover-class="none" hover-stop-propagation="false">
+            订单编号：{{order.id}}
+            <view class="copy" bindtap='copyText' data-text="67tyft" hover-class="hover">复制</view>
+        </view>
+        <view class="row" hover-class="none" hover-stop-propagation="false">
+            消费门店：{{order.storeName}}
+        </view>
+        <view class="row" hover-class="none" hover-stop-propagation="false">
+            消费方式：{{order.consumeType==0?'扫码点餐':order.consumeType==1?"到店消费":order.consumeType==2?"到店自取":"外卖配送"}}
+        </view>
+        <view class="row" hover-class="none" hover-stop-propagation="false">支付方式：微信支付</view>
+        <view class="row" hover-class="none" hover-stop-propagation="false">
+            下单时间：{{m1.format(order.createTime)}}
+        </view>
+        <view class="row" hover-class="none" hover-stop-propagation="false">
+            付款时间：{{m1.format(order.finalTime)}}
+        </view>
+        <view class="row" hover-class="none" hover-stop-propagation="false">
+            完成时间：{{m1.format(order.finalTime)}}
+        </view>
+    </view>
+</view>
+<wxs module="m1">
+  function format(ts) {
+    if (ts == null) {
+        return "暂无数据"
+    }
+    var d = getDate(ts)
+    return [d.getFullYear(), d.getMonth()+1, d.getDate()].join('-')
+      + ' '
+      + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':')
+  }
+  module.exports.format = format
+</wxs>

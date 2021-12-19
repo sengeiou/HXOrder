@@ -1,0 +1,38 @@
+page {
+  height: 100%;
+  background-color: whitesmoke;
+}
+
+view, text {
+  font-size: 30rpx;
+}
+
+.card {
+  margin-bottom: 30rpx;
+}
+
+.lists {
+  padding: 30rpx;
+}
+
+.page-body i-icon {
+  position: relative;
+  top: -2rpx;
+}
+
+.text {
+  font-size: 28rpx;
+  color: rgb(46, 42, 42);
+  padding-left: 20rpx;
+}
+
+.btn {
+  float: right;
+
+}
+
+
+.bottom-button {
+  width: 160px;
+  height: 40px;
+}

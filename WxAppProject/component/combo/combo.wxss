@@ -1,0 +1,114 @@
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 2rpx solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    box-shadow: 4rpx 4rpx 60rpx #c7ccd7;
+}
+
+.card>hr {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 2rpx;
+    padding: 1.25rem;
+    padding-top: 2rpx;
+}
+
+
+
+
+
+
+/**app.wxss**/
+view,
+text {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    padding-right: 30rpx;
+    padding-left: 30rpx;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 16rpx;
+}
+
+.dish-combo .title {
+    font-size: 32rpx;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 16rpx;
+    overflow: hidden;
+    width: 95%;
+    /*超出部分隐藏*/
+    white-space: nowrap;
+    /*让文本强制在一行不换行*/
+    text-overflow: ellipsis;
+    /*显示省略号来代表被修剪的文本*/
+}
+
+.dish-combo swiper {
+    position: relative;
+    top: 8rpx;
+}
+
+.dish-combo .slide-image {
+    width: 100%;
+    height: 100%;
+    margin-left: 10rpx;
+    left: 10rpx;
+    margin-right: 10rpx;
+    right: 10rpx;
+}
+
+.dish-combo .pos {
+    font-size: 30rpx;
+    position: relative;
+    top: 8rpx;
+}
+
+
+.dish-combo .inf-icon {
+    top: 30rpx;
+    position: relative;
+}
+
+.dish-combo .icon-plus {
+    line-height: 20rpx;
+    position: relative;
+    top: 5rpx;
+}
+
+.dish-combo .btn {
+    margin-right: 0;
+    right: 0;
+    float: right;
+    font-size: xx-small;
+}
+
+.dish-combo .tag {
+    position: relative
+    ;
+    top: 10rpx;
+}
+
+.dish-combo .sell {
+    font-size: 25rpx;
+    color: rgb(168, 107, 31);
+    top: -10rpx;
+    position: relative;
+  }
+

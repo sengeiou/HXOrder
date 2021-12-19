@@ -1,0 +1,30 @@
+<!-- <rich-text nodes="{{html}}"></rich-text> -->
+<view class="body" hover-class="none" hover-stop-propagation="false">
+    <block wx:for="{{dishOrders}}" wx:key="{{index}}">
+        <view class="fix" wx:if="{{item.dishNum>0}}">
+            <view class="left" hover-class="none" hover-stop-propagation="false">
+                {{index+1}}. {{item.dishName}}  × {{item.dishNum}}
+            </view>
+            <view class="right" hover-class="none" hover-stop-propagation="false">
+               ￥{{item.dishPrice*item.dishNum}}
+            </view>
+        </view>
+    </block>
+    <view class="discount" wx:if="{{otherFee!=0}}">
+        <view class="left" hover-class="none" hover-stop-propagation="false">其他费用
+        </view>
+        <view class="right dis" hover-class="none" hover-stop-propagation="false">{{otherFee}}</view>
+    </view>
+    <view class="discount" wx:if="{{shopDiscount!=0}}">
+        <view class="left" hover-class="none" hover-stop-propagation="false"><text style="color:red;">❤ </text>店铺优惠 <text class="dis-icon">减</text>
+        </view>
+        <view class="right dis" hover-class="none" hover-stop-propagation="false">-{{shopDiscount}}</view>
+    </view>
+    <view class="discount" wx:if="{{couponDiscount!=0}}">
+        <view class="left" hover-class="none" hover-stop-propagation="false">✍ 使用券  <text class="dis-icon">券</text></view>
+        <view class="right dis" hover-class="none" hover-stop-propagation="false">-{{couponDiscount}}</view>
+    </view>
+    <view class="none" hover-class="none" hover-stop-propagation="false">
+        <view class="right tot">总计：￥{{totalPrice-shopDiscount+otherFee-couponDiscount}}</view>
+    </view>
+</view>

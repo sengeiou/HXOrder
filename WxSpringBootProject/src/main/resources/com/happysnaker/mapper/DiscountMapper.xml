@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happysnaker.mapper.DiscountMapper">
+    <resultMap id="discountMap" type="com.happysnaker.pojo.Discount">
+        <!-- 配置文件中已开启驼峰法转换，此处填写特例即可 -->
+    </resultMap>
+
+    <select id="queryDiscountInfo" resultMap="discountMap">
+        SELECT * FROM mms_discount;
+    </select>
+
+</mapper>

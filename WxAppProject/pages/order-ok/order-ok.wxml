@@ -1,0 +1,45 @@
+<!-- pages/user/user.wxml -->
+<view class="page-body" hover-class="none" hover-stop-propagation="false">
+    <view class="container">
+        <view>
+            <van-icon name="checked" color="green" size="50"/>
+        </view>
+        <view>已下单</view>
+        <view class="fix" wx:if="{{consumeType!=0}}">
+            <steps active-index="1">
+                <step title="待支付" describe=""></step>
+                <step title="确认中" describe=""></step>
+                <step title="备餐中" describe=""></step>
+               <block wx:if="{{consumeType==1}}">
+                    <step title="待用餐" describe=""></step>
+               </block>
+               <block wx:elif="{{consumeType==2}}">
+                    <step title="待取餐" describe=""></step>
+               </block>
+               <block wx:else>
+                    <step title="配送中" describe=""></step>
+               </block>
+               <step title="已完成" describe=""></step>
+            </steps>
+        </view>
+         <view class="fix" wx:else>
+            <steps active-index="1">
+                <step title="待点餐" describe=""></step>
+                <step title="确认中" describe=""></step>
+                <step title="待支付" describe=""></step>
+                <step title="已完成" describe=""></step>
+            </steps>
+        </view>
+        <view class="fix" hover-class="none" hover-stop-propagation="false">
+            <button bind:tap="home" shape="semicircle" size="mini" plain="true" style="margin-right:30rpx;">回到首页</button>
+            <button bind:tap="form" shape="semicircle" size="mini" plain="true" style="margin-left:30rpx;">查看订单</button>
+        </view>
+        <view class="no-used" hover-class="none" hover-stop-propagation="false">
+            
+        </view>
+    </view>
+</view>
+<!-- consumeType 0: 待点餐 - 确认中 - 待支付 - 已完成
+ * consumeType 1: 待支付 - 确认中 - 备餐中 - 待用餐 - 已完成
+ * consumeType 2: 待支付 - 确认中 - 备餐中 - 带取餐 - 已完成
+ * consumeType 3: 待支付 - 确认中 - 备餐中 - 配送中 - 已完成  -->

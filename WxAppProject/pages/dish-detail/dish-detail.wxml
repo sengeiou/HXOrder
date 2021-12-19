@@ -1,0 +1,55 @@
+<view class="main" hover-class="none" hover-stop-propagation="false">
+    <card type="cover" image="{{dish.dishImg}}" title="名称：{{dish.name}}">
+        <view class="content">
+            <van-tabs active="{{ active }}" bind:change="onChange">
+            <van-tab title="详情">
+                <view class="tab-content">
+                    <view class="row" hover-class="none" hover-stop-propagation="false">
+                        <view class="left" hover-class="none" hover-stop-propagation="false">
+                            主料：
+                        </view>
+                        <view class="right" hover-class="none" hover-stop-propagation="false">
+                            {{dish.mainIngredient}}
+                        </view>
+                    </view>
+                    <view class="row" hover-class="none" hover-stop-propagation="false">
+                        <view class="left" hover-class="none" hover-stop-propagation="false">
+                            辅料：
+                        </view>
+                        <view class="right" hover-class="none" hover-stop-propagation="false">
+                            {{dish.ingredient}}
+                        </view>
+                    </view>
+                    <view class="row" hover-class="none" hover-stop-propagation="false">
+                        <view class="left" hover-class="none" hover-stop-propagation="false">
+                            制作：
+                        </view>
+                        <view class="right" hover-class="none" hover-stop-propagation="false">
+                            {{dish.makeMethod}}
+                        </view>
+                    </view>
+                    <view class="row" hover-class="none" hover-stop-propagation="false">
+                        <view class="left" hover-class="none" hover-stop-propagation="false">
+                            分量：
+                        </view>
+                        <view class="right" hover-class="none" hover-stop-propagation="false">
+                            {{dish.weight}}g
+                        </view>
+                    </view>
+                    <view class="row" hover-class="none" hover-stop-propagation="false">
+                        <view class="left" hover-class="none" hover-stop-propagation="false">
+                            价格：
+                        </view>
+                        <view class="right" hover-class="none" hover-stop-propagation="false">
+                            {{dish.price}}
+                        </view>
+                    </view>
+                </view>
+            </van-tab>
+            <van-tab title="描述">
+                <view class="tab-content">{{dish.desc}}</view>
+            </van-tab>
+        </van-tabs>
+        </view>
+    </card>
+</view>

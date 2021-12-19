@@ -1,0 +1,53 @@
+/**index.wxss**/
+page {
+    height: 100%;
+    background-color: whitesmoke;
+    font-size: 30rpx;
+}
+
+
+.page-body .img image {
+    width: 100%;
+    height: 400rpx;
+}
+
+.main-container {
+    margin: 10rpx;
+    padding: 20rpx;
+    position: relative;
+    top: -190rpx;
+    border-radius: 10rpx;
+}
+
+.userInfo {
+    padding: 42rpx;
+    background-color: white;
+    border-radius: 15rpx;
+}
+
+.userInfo .nickName {
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    width: 450rpx;
+    top: -32rpx;
+    left: 33rpx;
+    height: 53rpx;
+}
+
+.userInfo .text {
+    font-size: 28rpx;
+}
+
+.section {
+    background-color: white;
+    margin-top: 20rpx;
+}
+
+.my {
+    font-size: 30rpx;
+    font-weight: bold;
+    margin-left: 20rpx;
+    padding-left: 22rpx;
+    position: relative;
+}

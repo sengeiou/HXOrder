@@ -1,0 +1,20 @@
+2021-12-19 19:06:50.271  INFO 8392 --- [main] com.happysnaker.Start                    : Starting Start using Java 11.0.12 on LAPTOP-J611R7O5 with PID 8392 (E:\GithubRepositories\xxx\WxSpringBootProject\target\classes started by happysnakers in E:\GithubRepositories\xxx\WxSpringBootProject)
+2021-12-19 19:06:50.279  INFO 8392 --- [main] com.happysnaker.Start                    : The following profiles are active: prod
+2021-12-19 19:06:51.110  INFO 8392 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-12-19 19:06:51.112  INFO 8392 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-12-19 19:06:51.134  INFO 8392 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2021-12-19 19:06:51.700  INFO 8392 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (https)
+2021-12-19 19:06:51.707  INFO 8392 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-12-19 19:06:51.708  INFO 8392 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-12-19 19:06:51.709  INFO 8392 --- [main] o.a.catalina.core.AprLifecycleListener   : Loaded Apache Tomcat Native library [1.2.30] using APR version [1.7.0].
+2021-12-19 19:06:51.709  INFO 8392 --- [main] o.a.catalina.core.AprLifecycleListener   : APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+2021-12-19 19:06:51.709  INFO 8392 --- [main] o.a.catalina.core.AprLifecycleListener   : APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-12-19 19:06:51.726  INFO 8392 --- [main] o.a.catalina.core.AprLifecycleListener   : OpenSSL successfully initialized [OpenSSL 1.1.1k  25 Mar 2021]
+2021-12-19 19:06:51.795  INFO 8392 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-12-19 19:06:51.795  INFO 8392 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1461 ms
+2021-12-19 19:06:53.636  INFO 8392 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-12-19 19:06:54.033  INFO 8392 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (https) with context path ''
+2021-12-19 19:06:54.034  INFO 8392 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-12-19 19:06:54.096  INFO 8392 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-12-19 19:06:54.175  INFO 8392 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-12-19 19:06:54.344  INFO 8392 --- [main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [127.0.0.1:5672]

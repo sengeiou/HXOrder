@@ -1,0 +1,103 @@
+page {
+    background-color: whitesmoke;
+}
+
+.list {
+    padding: 30rpx;
+    padding-right: 15rpx;
+    padding-left: 15rpx;
+    margin-right: 15rpx;
+    margin-left: 15rpx;
+    margin-top: 16rpx;
+    height: 125;
+    background-color: white;
+    position: relative;
+
+}
+
+.list .title {
+    font-size: 30rpx;
+    font-weight: bold;
+    width: 95%;
+    overflow: hidden;
+    /*超出部分隐藏*/
+    white-space: nowrap;
+    /*让文本强制在一行不换行*/
+    text-overflow: ellipsis;
+    /*显示省略号来代表被修剪的文本*/
+}
+
+.list .desc {
+    font-size: 24rpx;
+    width: 95%;
+    color: rgb(80, 77, 77);
+    overflow: hidden;
+    /*超出部分隐藏*/
+    white-space: nowrap;
+    /*让文本强制在一行不换行*/
+    text-overflow: ellipsis;
+    /*显示省略号来代表被修剪的文本*/
+    margin-top: 10rpx;
+}
+
+.list .tag {
+    overflow: auto;
+    height: 48rpx;
+    margin-top: 10rpx;
+}
+
+.list .tag .i-tags {
+    margin-right: 10rpx;
+}
+
+.list .icon {
+    top: 75rpx;
+    right: 18rpx;
+    position: absolute;
+}
+
+.hover {
+    background-color: rgba(155, 149, 149, 0.658);
+}
+
+.place-card {
+    margin: 15px;
+    padding: 10px;
+    background-color: white;
+}
+
+.place-card .left-title {
+    font-weight:550;
+    font-size: 35rpx;
+    float: left;
+}
+
+.place-card .right-distance {
+    float: right;
+}
+
+.place-card .desc {
+    font-size: 25rpx;
+    color: rgb(51, 48, 48);
+}
+
+.place-card .radio {
+    margin-top: 40rpx;
+}
+
+.place-card .way {
+    font-size: 30rpx;
+    font-weight: 500;
+}
+
+.place-card .btn {
+    padding: 15rpx;
+    margin-left: 40rpx;
+    margin-right: 40rpx;
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(6, 6, 218, 0.61);
+    color: white;
+    border-radius: 50rpx;
+    font-size: 25rpx;
+}

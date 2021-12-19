@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happysnaker.mapper.StoreMapper">
+
+    <resultMap id="storeMap" type="com.happysnaker.pojo.Store">
+        <result column="id" property="id"></result>
+        <result column="name" property="name"></result>
+        <result column="address" property="address"></result>
+        <result column="img" property="img"></result>
+        <result column="time" property="time"></result>
+        <result column="support_takeout" property="supportTakeout"></result>
+        <result column="contact_phone" property="contactPhone"></result>
+        <result column="working" property="working"></result>
+        <result column="longitude" property="longitude"></result>
+        <result column="latitude" property="latitude"></result>
+    </resultMap>
+
+    <select id="getStoreInfo" resultMap="storeMap">
+        SELECT * FROM sms_store;
+    </select>
+
+    <select id="getStore" resultMap="storeMap">
+        SELECT * FROM sms_store WHERE id=#{storeId};
+    </select>
+
+</mapper>

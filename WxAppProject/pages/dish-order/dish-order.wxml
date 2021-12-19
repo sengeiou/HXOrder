@@ -1,0 +1,125 @@
+<view class="footer" hover-class="none" hover-stop-propagation="false">
+    <!-- <view span="17" style="width:55%;float:left;margin-left: 25rpx;">
+        <l-badge value="{{num}}" max-count="99">
+            <van-button type="default" round icon="shopping-cart-o">购物车</van-button>
+        </l-badge>
+        <text class="price r" selectable="false" space="false" decode="false">￥{{price - discount}}<text class="o-price r" selectable="false" space="false" decode="false" wx:if="{{discount>0}}">￥{{price}}</text></text>
+        
+    </view>
+    <view span="6" class="f-r" catch:tap="order">
+        <van-button type="primary">主要按钮</van-button>
+    </view> -->
+    <view class="cart-left" hover-class="none" hover-stop-propagation="false">
+        <van-row>
+            <van-col span="10">
+                <badge value="{{num}}" max-count="99" catch:tap="clickCart">
+                    <van-button type="default" round icon="shopping-cart-o">购物车</van-button>
+                </badge>
+            </van-col>
+            <van-col span="7"><view class="price">￥{{price - discount}}</view></van-col>
+            <van-col span="7"><view class="o-price">￥{{price}}</view></van-col>
+        </van-row>
+    </view>
+    <view class="cart-right" hover-class="none" hover-stop-propagation="false" catch:tap="order">
+        立即结算
+    </view>
+</view>
+
+<van-dialog id="van-dialog" />
+
+
+<van-popup
+  show="{{ showCart }}"
+  position="bottom"
+  custom-style="bottom: 120rpx;max-height: 80%;"
+  bind:close="hideCartPop">
+  <view class="empty-box" bindtap="clearCart">
+    <van-icon name="delete" />
+    <view class="empty-1" catch:tap="clearCart">清空购物车</view>
+  </view>
+  <view wx:for="{{cart}}" wx:for-index="key" wx:for-item="item" wx:key="id" class="cart-goods-list">
+    <view class="l">
+      <view class="title">{{dishInfo[key].name}}</view>
+      <!-- <view wx:if="{{item.sku}}" class="content">
+        <block wx:for="{{item.sku}}" wx:key="optionValueId" wx:for-item="_sku">{{_sku.optionValueName}} </block>
+        <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">{{option.name}} </block>
+      </view> -->
+    </view>
+    <view class="r">
+      <view class="price">单价：¥{{ dishInfo[key].price }}</view>
+      <van-stepper value="{{ item.num }}" min="0" max="{{dishInfo[key].stock}}"  data-id="{{key}}" bind:change="cartStepChange"/>
+    </view>
+  </view>
+</van-popup>
+
+<view class="page-body" style="{{page=='one'?'overflow:hidden;height:100%;':'overflow:auto;'}}" hover-class="none" hover-stop-propagation="false">
+    <view class="header">
+        <view class="header" hover-class="none" hover-stop-propagation="false">
+            <van-icon name="award" size="20" style="position:relative; top:3rpx"/>
+            <text class="door">{{store.name}}</text>
+            <view class="right-distance desc" hover-class="none" hover-stop-propagation="false">
+                消费类型: {{consumeTypeMap[consumeType]}}
+            </view>
+        </view>
+    </view>
+
+
+    <van-tabs active="{{ active }}" bind:change="tagsChange">
+        <van-tab title="单点">
+            <view class="tab-content">
+                <van-row>
+                    <van-col span="4">
+                        <view class="left" style="height:{{(height-122-81)+'rpx'}};" hover-class="none" hover-stop-propagation="false">
+                            <block wx:for="{{singalOrder}}" wx:key="{{index}}">
+                                <view data-index='{{index}}' catch:tap="navClick" class="nav {{currentNav==index?'active':'no-used'}}" hover-class="none" hover-stop-propagation="false">
+                                    <image class="nav-icon" src="{{item.icon}}" mode="aspectFit|aspectFill|widthFix" lazy-load="false" />
+                                    <text class="nav-text">{{item.nav}}</text>
+                                </view>
+                            </block>
+                        </view>
+                    </van-col>
+                    <van-col span="20">
+                        <view class="col-20" hover-class="none" hover-stop-propagation="false">
+                            <scroll-view scroll-with-animation='true' scroll-y="{{true}}"  enable-back-to-top='true' style="height:{{(height)+'rpx'}};"  catchscrolltoupper="upper" catchscrolltolower="lower" catchscroll="scroll" scroll-into-view="{{'o'+tapNav}}" scroll-top="{{scrollTop}}">
+                                <block wx:for="{{singalOrder}}" wx:key="{{index}}">
+                                    <view class="scroll-view-item" id="{{'o'+index}}" hover-class="none" hover-stop-propagation="false">
+                                        <text class="nav-title">{{item.nav}}</text>
+                                        <dish cart="{{cart}}" data-type='dish_show' data-id='{{index}}' dishes='{{item.dishList}}' countMap='{{countMap}}' dishShowType='order' catchclickLike="clickLike" catchclickCollection="clickCollection" catch:countChange="dishCountChange"></dish>
+                                        
+                                    </view>
+                                </block>
+                                <van-divider contentPosition="center">
+                                    已经到底了，快快下单吧！
+                                </van-divider>
+                                <view style="height: 200px;"></view>
+                            </scroll-view>
+                        </view>
+                    </van-col>
+                </van-row>
+            </view>
+        </van-tab>
+
+        <van-tab title="套餐">
+             <view class="tab-content">
+                 
+                <view class="tags" hover-class="none" hover-stop-propagation="false">
+                    <block wx:for="{{combos}}">
+                        <view class="tag  {{comboType==index?'tag_active':''}}" hover-class="none" data-id="{{index}}" bind:tap="changeTag">
+                            {{item.nav}}
+                        </view>
+                    </block>
+                </view>
+
+                <block wx:for="{{combos}}">
+                    <view style="{{comboType!=index?'display:none':''}}">
+                        <van-empty description="这里空空如也" wx:if="{{item.comboList.length==0}}"/>
+                        <combo catch:countChange="comboCountChange" countMap='{{countMap}}' combos="{{item.comboList}}" data-type='dish_combo' dishShowType='order' catchclickLike="clickLike" catchclickCollection="clickCollection"></combo>
+                        <van-divider contentPosition="center">
+                         已经到底了，快快下单吧！
+                        </van-divider>
+                    </view>
+                </block>
+            </view>
+        </van-tab>
+    </van-tabs>
+</view>

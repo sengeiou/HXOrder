@@ -1,0 +1,50 @@
+.i-badge {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle
+}
+
+.i-badge-count {
+    position: absolute;
+    transform: translateX(50%);
+    top: -12rpx;
+    right: 0;
+    height: 36rpx;
+    border-radius: 18rpx;
+    min-width: 36rpx;
+    background: #ed3f14;
+    border: 1px solid transparent;
+    color: #fff;
+    line-height: 36rpx;
+    text-align: center;
+    padding: 0 10rpx;
+    font-size: 24rpx;
+    white-space: nowrap;
+    transform-origin: -10% center;
+    z-index: 10;
+    box-shadow: 0 0 0 1px #fff;
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility
+}
+
+.i-badge-count-alone {
+    top: auto;
+    display: block;
+    position: relative;
+    transform: translateX(0)
+}
+
+.i-badge-dot {
+    position: absolute;
+    transform: translateX(-50%);
+    transform-origin: 0 center;
+    top: -8rpx;
+    right: -16rpx;
+    height: 16rpx;
+    width: 16rpx;
+    border-radius: 100%;
+    background: #ed3f14;
+    z-index: 10;
+    box-shadow: 0 0 0 1px #fff
+}

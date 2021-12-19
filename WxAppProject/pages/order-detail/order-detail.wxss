@@ -1,0 +1,64 @@
+/* pages/user/user.wxss */
+page{
+    height: 100%;
+    background-color: whitesmoke;
+}
+
+.desc {
+    padding: 10rpx;
+    font-size: 20rpx;
+}
+
+.section{
+    background-color: white;
+    padding: 30rpx;
+    margin-bottom: 30rpx;
+    overflow: hidden;
+}
+.store {    
+   
+    font-size: 32rpx;
+    padding-bottom: 10rpx;
+}
+.main {
+    width: 100%;
+    overflow: hidden;
+}
+.left {
+    width: 10%;
+    float: left;
+}
+.right {
+    width: 90%;
+    float: right;
+}
+
+.right text {
+    font-size: 32rpx;
+    color: rgb(46, 45, 45);
+}
+
+.row {
+    font-size: 28rpx;
+    color: rgb(63, 62, 62);
+    padding: 5rpx;
+}
+
+.copy {
+    padding: 4rpx;
+    font-size: 24rpx;
+    border: 1px solid rgb(37, 37, 37);
+    float: right;
+    border-radius: 5rpx;
+}
+
+.hover {
+    background-color: rgba(128, 128, 128, 0.25);
+}
+
+.container {
+    width: auto;
+    padding-left: 0rpx;
+    margin-top: 10rpx;
+}
+

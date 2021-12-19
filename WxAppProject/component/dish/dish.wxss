@@ -1,0 +1,183 @@
+/**app.wxss**/
+view,
+text {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  padding-right: 30rpx;
+  padding-left: 30rpx;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 16rpx;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.inf-card {
+
+  width: auto;
+  height: auto;
+  box-shadow: 4rpx 4rpx 60rpx #c7ccd7;
+  border-radius: 20rpx;
+  position: relative;
+  /* background-color: rgb(113, 76, 201); */
+  padding: 30rpx;
+  margin: 30rpx;
+  /* overflow: auto; */
+
+}
+
+.inf-card .col-66 {
+  margin-bottom: 60rx;
+  bottom: 60rpx;
+  padding-bottom: 60rpx;
+}
+
+
+.inf-card .top-image {
+  width: 38rpx;
+  height: 38rpx;
+  border-radius: 20rpx;
+  display: inline-block;
+  position: relative;
+  top: -4rpx;
+
+}
+
+.inf-card .top {
+  color: red;
+  font-style: italic
+}
+
+.inf-card .title {
+  font-size: 35rpx;
+  font-weight: bold;
+  position: relative;
+  top: -9rpx;
+  line-height: 100%;
+  width: 95%;
+  overflow: hidden;
+  /*让文本强制在一行不换行*/
+  text-overflow: ellipsis;
+  /*显示省略号来代表被修剪的文本*/
+}
+
+.inf-card .sell {
+  font-size: 25rpx;
+  color: rgb(168, 107, 31);
+  top: -4rpx;
+  position: relative;
+  margin-top: 10rpx;
+}
+
+.inf-card .reason {
+  color: #000;
+  font-weight: 500;
+  font-size: 28rpx;
+}
+
+.inf-card .inf-icon {
+  top: 10rpx;
+  position: relative;
+}
+
+.inf-card .icon-plus {
+  line-height: 20rpx;
+  position: relative;
+  top: 5rpx;
+  font-size: 30rpx;
+}
+
+.inf-card .btn {
+  margin-right: 0;
+  right: 0;
+  float: right;
+  font-size: 15rpx;
+}
+
+.scroll-view-item {
+  height: 250rpx !important;
+  width: auto;
+  height: auto;
+  box-shadow: 0px 0px 0px #c7ccd7;
+  border-radius: 1rpx;
+  position: relative;
+  /* background-color: rgb(113, 76, 201); */
+  margin: 0;
+  padding: 30rpx;
+  white-space: nowrap;
+  background-color: white !important;
+}
+
+.order-title {
+  height: 32rpx;
+  width: auto;
+  padding: 2rpx;
+  width: 95%;
+  /* overflow-x:auto !important;
+    overflow-y: hidden !important; */
+  overflow: hidden;
+  /*超出部分隐藏*/
+  white-space: nowrap;
+  /*让文本强制在一行不换行*/
+  text-overflow: ellipsis;
+  /*显示省略号来代表被修剪的文本*/
+}
+
+.original-price {
+  font-size: 26rpx;
+  text-decoration: line-through;
+
+}
+
+.read-more {
+  background-color: rgb(50, 175, 50);
+  border: 0px solid #000;
+  float: right;
+  border-radius: 20rpx;
+  padding: 8rpx;
+  font-size: 24rpx;
+  color: white;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.cnt {
+  float: right;
+  font-size: 20rpx;
+  font-family: 'Times New Roman', Times, serif;
+  position: relative;
+  top: 10rpx;
+}
+
+.p {
+  position: relative;
+  top: 12rpx;
+}
+
+.pp {
+  position: relative;
+  top: -5rpx;
+}
+
+.tags {
+  margin-right: 2px;
+}

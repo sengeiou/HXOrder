@@ -1,0 +1,25 @@
+page {
+    height: 100%;
+    background-color: whitesmoke;
+}
+
+.main {
+    background-color: white;
+    margin-top: 30rpx;
+}
+.row {
+    display: block;
+    padding: 10rpx;
+    height: 30rpx;
+}
+
+.row .left {
+    float: left;
+    font-size: 28rpx;
+    color: rgb(78 73 73);
+}
+
+.row .right {
+    margin-right: 150rpx;
+    font-size: 32rpx;
+}

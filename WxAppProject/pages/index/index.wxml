@@ -1,0 +1,128 @@
+<van-dialog id="van-dialog" />
+
+<view class="page-body" hover-class="none" hover-stop-propagation="false" animation="{{slide_up1}}">
+    <view>
+        <swiper class="swiper" indicator-dots="true" indicator-color="yellow" indicator-active-color="green" autoplay="true" current="0" interval="4000" duration="1000" circular="true">
+            <block wx:for="{{carousel}}" wx:key="*this" wx:for-index="key" wx:for-item="val">
+                <swiper-item class="swiper">
+                    <navigator url="{{val}}" class="swiper">
+                        <image src="{{key}}" class="swiper" />
+                    </navigator>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view>
+        <van-notice-bar
+        scrollable="{{ true }}"
+        left-icon="volume-o"
+        text="{{notify}}"
+        />
+    </view>
+    <view class="container">
+        <van-grid clickable column-num="3">
+            <van-grid-item icon="enlarge" icon-color="red" catch:tap="scan" text="扫码点餐"></van-grid-item>
+            <van-grid-item icon-color="red" icon="comment-o" link-type="switchTab" url="/pages/order-meal/order-meal" text="到店消费"></van-grid-item>
+            <van-grid-item icon-color="red" icon="gift-o" link-type="switchTab" url="/pages/order-meal/order-meal" text="到店自取"></van-grid-item>
+            <van-grid-item icon-color="red" icon="clock-o" link-type="switchTab" url="/pages/order-meal/order-meal" text="预约桌位"></van-grid-item>
+            <van-grid-item icon-color="red" icon="tosend" link-type="switchTab" url="/pages/order-meal/order-meal" text="外卖配送"></van-grid-item>
+            <van-grid-item icon-color="red" icon="discount" link-type="switchTab" url="/pages/order-meal/order-meal" text="领取优惠券"></van-grid-item>
+        </van-grid>
+        <!-- <i-grid>
+            <i-grid-item bind:tap="scan">
+                <i-grid-icon>
+                    <image src="/images/scan.png" />
+                </i-grid-icon>
+                <i-grid-label>扫码点餐</i-grid-label>
+            </i-grid-item>
+            <i-grid-item>
+                <navigator url="/pages/order-meal/order-meal" open-type='switchTab'>
+                    <i-grid-icon>
+                        <image src="/images/consumption.png" />
+                    </i-grid-icon>
+                    <i-grid-label>到店消费</i-grid-label>
+                </navigator>
+            </i-grid-item>
+            <i-grid-item>
+                <i-grid-icon>
+                    <navigator url="/pages/order-meal/order-meal" open-type='switchTab'>
+                        <image src="/images/PUS.png" />
+                    </navigator>
+                </i-grid-icon>
+                <i-grid-label>到店自取</i-grid-label>
+            </i-grid-item>
+        </i-grid>
+        <i-grid>
+            <i-grid-item>
+                <i-grid-icon>
+                    <navigator>
+                        <image src="/images/reserve.png" />
+                    </navigator>
+                </i-grid-icon>
+                <i-grid-label>预约桌位</i-grid-label>
+            </i-grid-item>
+            <i-grid-item>
+                <i-grid-icon>
+                    <navigator url="/pages/order-meal/order-meal" open-type='switchTab'>
+                        <image src="/images/takeout.png" />
+                    </navigator>
+                </i-grid-icon>
+                <i-grid-label>外卖配送</i-grid-label>
+            </i-grid-item>
+            <i-grid-item>
+                <i-grid-icon>
+                    <navigator>
+                        <image src="/images/discount.png" />
+                    </navigator>
+                </i-grid-icon>
+                <i-grid-label>超值优惠</i-grid-label>
+            </i-grid-item>
+        </i-grid> -->
+    </view>
+    <view hover-class="none" hover-stop-propagation="false" style="margin-top:25px;">
+        <!-- <l-tabs animated="true" animated-for-line="true">
+            <l-tabpanel tab="热销榜单" key="one" slot="one">
+                <view class="tab-content">
+                    <dish dishes='{{dishesList}}' dishShowType='sort' bindclickLike="clickLike" bindclickCollection="clickCollection" bindadd="add"></dish>
+                    <i-load-more tip="本店只展示销售榜前15的菜品" loading="{{ false }}" />
+                </view>
+            </l-tabpanel>
+            <l-tabpanel tab="店长推荐" key="two" slot="two">
+                <view class="tab-content">
+                    <dish dishes='{{dishRecommend}}' dishShowType='recommend' bindadd="add" bindclickLike="clickLike" bindclickCollection="clickCollection"></dish>
+                    <i-load-more tip="已经到底了，快快下单吧！" loading="{{ false }}" />
+                </view>
+            </l-tabpanel>
+            <l-tabpanel tab="优惠套餐" key="three" slot="three">
+                <combo dishCombos="{{dishCombos}}" bindclickLike="clickLike" bindadd="add" bindclickCollection="clickCollection"></combo>
+                <i-load-more tip="已经到底了，快快下单吧！" loading="{{ false }}" />
+            </l-tabpanel> -->
+            <!-- 暂不支持客户评论 -->
+            <!-- <l-tabpanel tab="客户评论" key="four" slot="four">
+                <view class="tab-content">
+                    <text>
+                        
+                    </text>
+                </view>
+            </l-tabpanel> -->
+        <!-- </l-tabs> -->
+        <van-tabs sticky  bind:change="onChange" swipeable>
+            <van-tab title="热销榜单">
+                <dish dishes='{{hotDishList}}' dishShowType='sort' bindclickLike="clickLike" bindclickCollection="clickCollection" bindadd="add"></dish>
+                <van-divider contentPosition="center">已经到底了0_0</van-divider>
+            </van-tab>
+            <van-tab title="店长推荐">
+                <dish dishes='{{recommendDishList}}' dishShowType='recommend' bindadd="add" bindclickLike="clickLike" bindclickCollection="clickCollection"></dish>
+                <van-divider contentPosition="center">已经到底了0_0</van-divider>
+            </van-tab>
+            <van-tab title="新品尝鲜">
+                <dish dishes='{{newDishList}}' dishShowType='sort' bindclickLike="clickLike" bindclickCollection="clickCollection" bindadd="add"></dish>
+                <van-divider contentPosition="center">已经到底了0_0</van-divider>
+           </van-tab>
+            <van-tab title="超值套餐">
+                <combo combos="{{combos}}" bindclickLike="clickLike" bindadd="add" bindclickCollection="clickCollection"></combo>
+                <van-divider contentPosition="center">已经到底了0_0</van-divider>
+            </van-tab>
+        </van-tabs>
+    </view>
+</view>

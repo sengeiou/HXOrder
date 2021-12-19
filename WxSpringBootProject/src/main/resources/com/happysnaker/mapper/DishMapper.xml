@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happysnaker.mapper.DishMapper">
+    <resultMap id="dishMap" type="com.happysnaker.pojo.Dish">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="price" property="price"></result>
+        <result column="publish_status" property="publishStatus"></result>
+        <result column="recommend_status" property="recommendStatus"></result>
+        <result column="reason" property="reason"></result>
+        <result column="stars" property="stars"></result>
+        <result column="new_status" property="newStatus"></result>
+        <result column="sale" property="sale"></result>
+        <result column="like_num" property="likeNum"></result>
+        <result column="desc" property="desc"></result>
+        <result column="dish_img" property="dishImg"></result>
+        <result column="main_ingredient" property="mainIngredient"></result>
+        <result column="ingredient" property="ingredient"></result>
+        <result column="make_method" property="makeMethod"></result>
+        <result column="weight" property="weight"></result>
+        <result column="make_time" property="makeTime"></result>
+        <result column="kind" property="kind"></result>
+        <result column="classification_id" property="classificationId"></result>
+        <result column="stock" property="stock"></result>
+
+
+        <!-- 查询 discount -->
+        <association property="discount"
+                     javaType="com.happysnaker.pojo.Discount">
+            <result column="type" property="type"></result>
+            <result column="val" property="val"></result>
+            <result column="count" property="count"></result>
+            <result column="unit" property="unit"></result>
+        </association>
+
+        <!-- 查询 tags -->
+        <collection property="tags"
+                    ofType="java.lang.String"
+                    column="id" select="queryDishTag">
+        </collection>
+
+        <!-- 查询 菜品分类 -->
+        <collection property="classificationIds"
+                    ofType="java.lang.Integer"
+                    column="id" select="classificationId">
+        </collection>
+    </resultMap>
+
+    <select id="classificationId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT classification_id
+        FROM `dms_dish_classification`
+        WHERE dish_id = #{id}
+    </select>
+
+    <select id="queryClassification" resultType="java.util.Map">
+        SELECT *
+        FROM dms_classification;
+    </select>
+
+    <select id="queryDishById" parameterType="java.lang.Integer" resultType="com.happysnaker.pojo.Dish">
+        SELECT *
+        FROM dms_dish
+        WHERE id = #{id};
+    </select>
+
+    <select id="queryDishes" resultMap="dishMap">
+        SELECT *
+        FROM dms_dish;
+    </select>
+
+    <select id="queryDishInfo" resultMap="dishMap">
+        SELECT *
+        FROM dms_dish
+                 LEFT JOIN mms_discount
+                           ON dms_dish.id = mms_discount.dish_id
+                 INNER JOIN dms_dish_stock AS stock
+                            ON stock.store_id = #{storeId} AND dms_dish.id = stock.dish_id;
+    </select>
+
+    <select id="queryHotSaleDish" parameterType="java.lang.Integer" resultMap="dishMap">
+        SELECT *
+        FROM dms_dish
+        ORDER BY sale DESC LIMIT #{n};
+    </select>
+
+    <select id="queryNewDish" parameterType="java.lang.Integer" resultMap="dishMap">
+        SELECT *
+        FROM dms_dish;
+--    直接从缓存中取，不用这个了     WHERE new_status = 1;
+    </select>
+
+    <select id="queryDishTag" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT tag
+        FROM dms_dish_tag
+        WHERE dish_id = #{id};
+    </select>
+
+    <select id="queryDishInventory" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT *
+        FROM dms_dish_stock
+        WHERE store_id = #{storeId}
+        FOR UPDATE
+    </select>
+
+    <select id="getTheDishInventory" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT stock
+        FROM dms_dish_stock
+        WHERE store_id = #{storeId}
+          AND dish_id = #{dishId};
+    </select>
+
+
+    <select id="queryRecommendedDish" resultMap="dishMap">
+        SELECT *
+        FROM dms_dish AS t1
+                 LEFT JOIN dms_recommend_dish AS t2 ON t1.id = t2.dish_id;
+    </select>
+
+
+
+    <update id="updateDishInventory" parameterType="java.lang.Integer">
+        UPDATE dms_dish_stock
+        SET stock = stock + #{val}
+        WHERE store_id = #{storeId}
+          AND dish_id = #{dishId}  AND stock > 0;
+    </update>
+
+    <insert id="insertDishInventory" parameterType="java.lang.Integer">
+        INSERT INTO dms_dish_stock(store_id, dish_id, stock) VALUE (#{storeId}, #{dishId}, #{val});
+    </insert>
+
+    <update id="updateDishFavoriteNum" parameterType="java.lang.Integer">
+        UPDATE dms_dish
+        SET like_num = like_num + #{val}
+        WHERE id = #{dishId};
+    </update>
+</mapper>

@@ -1,0 +1,27 @@
+<van-empty description="这里空空如也" wx:if="{{!dishes || dishes.length == 0}}"/>
+<view class="page-body" hover-class="none" hover-stop-propagation="false">
+    <block wx:for="{{dishes}}" wx:key="{{index}}">
+        <view class="list" hover-class="none" hover-stop-propagation="false">
+            <van-row>
+                <van-col span="6">
+                    <image shape="square" mode="aspectFit|aspectFill|widthFix" src="{{item.dishImg}}" style="width:80px; height: 80px" />
+                </van-col>
+                <van-col span="16">
+                    <view class="title">{{item.name}}</view>
+                    <view class="desc">月售：{{item.sale}} 单价：{{item.price}}</view>
+                    <view class="tag" hover-class="none" hover-stop-propagation="false">
+                        <block wx:for="{{item.tags}}">
+                            <van-tag type="primary" class="i-tags">{{item}}</van-tag>
+                        </block>
+                    </view>
+                </van-col>
+                <van-col span="2">
+                    <van-icon name="delete" class="icon" size="20" catch:tap="delete" data-id="{{index}}" />
+                    <!-- <l-icon hover-class="hover" name="delete" class="icon" catch:tap="delete" data-id="{{index}}" /> -->
+                </van-col>
+            </van-row>
+        </view>
+    </block>
+</view>
+<van-action-sheet show="{{ show }}" actions="{{ actions }}" bind:select="onSelect" />
+<van-dialog id="van-dialog" />
