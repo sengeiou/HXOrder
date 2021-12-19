@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happysnaker.mapper.ComboMapper">
+    <resultMap id="comboMap" type="com.happysnaker.pojo.Combo">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="price" property="price"></result>
+        <result column="sell_num" property="sellNum"></result>
+        <result column="like_num" property="likeNum"></result>
+        <result column="publish_status" property="publishStatus"></result>
+
+        <!-- 查询 discount -->
+        <association property="discount"
+                     javaType="com.happysnaker.pojo.Discount">
+            <result column="type" property="type"></result>
+            <result column="val" property="val"></result>
+            <result column="count" property="count"></result>
+            <result column="unit" property="unit"></result>
+        </association>
+
+        <!-- 查询 tags -->
+        <collection property="tags"
+                    ofType="java.lang.String"
+                    column="id" select="queryDishTag">
+        </collection>
+
+        <!-- 查询 comboDish -->
+        <collection property="comboDish"
+                    ofType="com.happysnaker.pojo.ComboDish"
+                    column="id"
+                    select="queryComboDishById">
+        </collection>
+
+        <collection property="classificationIds"
+                    ofType="java.lang.Integer"
+                    column="id" select="classificationId">
+        </collection>
+
+    </resultMap>
+
+
+    <resultMap id="comboDishMap" type="com.happysnaker.pojo.ComboDish">
+        <result column="dish_id" property="dishId"></result>
+        <result column="dish_num" property="dishNum"></result>
+        <result column="combo_id" property="comboId"></result>
+        <result column="dish_img" property="dishImg"></result>
+        <result column="name" property="dishName"></result>
+        <result column="price" property="dishPrice"></result>
+    </resultMap>
+
+    <select id="classificationId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT classification_id
+        FROM `dms_dish_classification`
+        WHERE dish_id = #{id}
+    </select>
+
+    <select id="getComboById" resultMap="comboMap">
+        SELECT * FROM
+                (SELECT * FROM `dms_combo` WHERE id = #{id}) AS a
+                    LEFT JOIN `mms_discount` AS b
+                              ON  a.id = b.dish_id;
+    </select>
+    <select id="queryComboInfo" resultMap="comboMap">
+        SELECT *
+        FROM dms_combo
+                 LEFT JOIN `mms_discount`
+                           ON dms_combo.id = mms_discount.dish_id;
+    </select>
+
+    <select id="queryComboDish" resultMap="comboDishMap">
+        SELECT *
+        FROM dms_combo_dish;
+    </select>
+
+    <select id="queryComboDishById" resultMap="comboDishMap">
+        SELECT combo_id, dish_id, dish_num, `name`, dish_img, price
+        FROM `dms_combo_dish` AS a
+                 INNER JOIN `dms_dish` AS b
+                            ON combo_id = #{comboId} AND a.dish_id = b.id;
+    </select>
+
+    <select id="queryDishTag" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT tag
+        FROM dms_dish_tag
+        WHERE dish_id = #{id};
+    </select>
+
+    <insert id="insertCombo">
+        INSERT INTO `dms_combo`(`id`, `name`, `price`, `sale`, `like_num`, `publish_status`)
+        SELECT #{id},
+               #{name},
+               #{price},
+               #{sale},
+               #{likeNum},
+               #{publishStatus}
+    </insert>
+
+    <insert id="insertComboDish" parameterType="com.happysnaker.pojo.ComboDish">
+        INSERT INTO `dms_combo_dish`(`combo_id`, `dish_id`, `dish_num`, `is_add`)
+        SELECT #{comboId}, #{dishId}, #{dishNum}, #{isAdd}
+    </insert>
+
+    <select id="queryComboByPagination" resultType="com.happysnaker.pojo.Combo">
+        SELECT * FROM `dms_combo`
+        WHERE id >=
+        (SELECT id FROM `dms_combo`
+        <where>
+            <if test="keyword != null">
+                AND name LIKE #{keyword}
+            </if>
+
+            <if test="status != null">
+                AND publish_status = #{status}
+            </if>
+        </where>
+        ORDER BY id
+        LIMIT #{offset}, 1)
+        <if test="keyword != null">
+            AND name LIKE #{keyword}
+        </if>
+
+        <if test="status != null">
+            AND publish_status = #{status}
+        </if>
+        LIMIT #{num};
+    </select>
+</mapper>

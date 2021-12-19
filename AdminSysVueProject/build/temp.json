@@ -1,0 +1,245 @@
+[{
+  "hidden": 0,
+  "level": 0,
+  "icon": "product",
+  "sort": 0,
+  "title": "商品",
+  "parentId": 0,
+  "createTime": 1580626236000,
+  "name": "pms",
+  "id": 1
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "product-list",
+  "sort": 0,
+  "title": "商品列表",
+  "parentId": 1,
+  "createTime": 1580626310000,
+  "name": "product",
+  "id": 2
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "product-add",
+  "sort": 0,
+  "title": "添加商品",
+  "parentId": 1,
+  "createTime": 1580626364000,
+  "name": "addProduct",
+  "id": 3
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "product-cate",
+  "sort": 0,
+  "title": "商品分类",
+  "parentId": 1,
+  "createTime": 1580626431000,
+  "name": "productCate",
+  "id": 4
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "product-attr",
+  "sort": 0,
+  "title": "商品类型",
+  "parentId": 1,
+  "createTime": 1580626491000,
+  "name": "productAttr",
+  "id": 5
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "product-brand",
+  "sort": 0,
+  "title": "品牌管理",
+  "parentId": 1,
+  "createTime": 1580626589000,
+  "name": "brand",
+  "id": 6
+}, {
+  "hidden": 0,
+  "level": 0,
+  "icon": "order",
+  "sort": 0,
+  "title": "订单",
+  "parentId": 0,
+  "createTime": 1580633647000,
+  "name": "oms",
+  "id": 7
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "product-list",
+  "sort": 0,
+  "title": "订单列表",
+  "parentId": 7,
+  "createTime": 1580633718000,
+  "name": "order",
+  "id": 8
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "order-setting",
+  "sort": 0,
+  "title": "订单设置",
+  "parentId": 7,
+  "createTime": 1580633806000,
+  "name": "orderSetting",
+  "id": 9
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "order-return",
+  "sort": 0,
+  "title": "退货申请处理",
+  "parentId": 7,
+  "createTime": 1580633859000,
+  "name": "returnApply",
+  "id": 10
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "order-return-reason",
+  "sort": 0,
+  "title": "退货原因设置",
+  "parentId": 7,
+  "createTime": 1580633980000,
+  "name": "returnReason",
+  "id": 11
+}, {
+  "hidden": 0,
+  "level": 0,
+  "icon": "sms",
+  "sort": 0,
+  "title": "营销",
+  "parentId": 0,
+  "createTime": 1580804280000,
+  "name": "sms",
+  "id": 12
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "sms-flash",
+  "sort": 0,
+  "title": "秒杀活动列表",
+  "parentId": 12,
+  "createTime": 1580804362000,
+  "name": "flash",
+  "id": 13
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "sms-coupon",
+  "sort": 0,
+  "title": "优惠券列表",
+  "parentId": 12,
+  "createTime": 1580804416000,
+  "name": "coupon",
+  "id": 14
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "product-brand",
+  "sort": 0,
+  "title": "品牌推荐",
+  "parentId": 12,
+  "createTime": 1581063758000,
+  "name": "homeBrand",
+  "id": 16
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "sms-new",
+  "sort": 0,
+  "title": "新品推荐",
+  "parentId": 12,
+  "createTime": 1581063794000,
+  "name": "homeNew",
+  "id": 17
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "sms-hot",
+  "sort": 0,
+  "title": "人气推荐",
+  "parentId": 12,
+  "createTime": 1581063998000,
+  "name": "homeHot",
+  "id": 18
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "sms-subject",
+  "sort": 0,
+  "title": "专题推荐",
+  "parentId": 12,
+  "createTime": 1581064096000,
+  "name": "homeSubject",
+  "id": 19
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "sms-ad",
+  "sort": 0,
+  "title": "广告列表",
+  "parentId": 12,
+  "createTime": 1581064122000,
+  "name": "homeAdvertise",
+  "id": 20
+}, {
+  "hidden": 0,
+  "level": 0,
+  "icon": "ums",
+  "sort": 0,
+  "title": "权限",
+  "parentId": 0,
+  "createTime": 1581064153000,
+  "name": "ums",
+  "id": 21
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "ums-admin",
+  "sort": 0,
+  "title": "用户列表",
+  "parentId": 21,
+  "createTime": 1581064191000,
+  "name": "admin",
+  "id": 22
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "ums-role",
+  "sort": 0,
+  "title": "角色列表",
+  "parentId": 21,
+  "createTime": 1581064213000,
+  "name": "role",
+  "id": 23
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "ums-menu",
+  "sort": 0,
+  "title": "菜单列表",
+  "parentId": 21,
+  "createTime": 1581064253000,
+  "name": "menu",
+  "id": 24
+}, {
+  "hidden": 0,
+  "level": 1,
+  "icon": "ums-resource",
+  "sort": 0,
+  "title": "资源列表",
+  "parentId": 21,
+  "createTime": 1581064273000,
+  "name": "resource",
+  "id": 25
+}], "username": "admin"
+}, "message": "操作成功"
+}, "basePath": "http://localhost:8080", "startTime": 1637045395879, "username": "admin", "spendTime": 16
+}
+

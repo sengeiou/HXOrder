@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happysnaker.mapper.UserMapper">
+    <select id="queryUserByPagination" resultType="com.happysnaker.pojo.User">
+        SELECT * FROM `ums_admin`
+        WHERE id >= (
+        SELECT id FROM `ums_admin`
+        <where>
+            <if test="keyword != null">
+                AND username LIKE #{keyword} OR nickname LIKE #{keyword}
+            </if>
+        </where>
+        ORDER BY id
+        LIMIT #{offset}, 1
+        )
+        <if test="keyword != null">
+            AND username LIKE #{keyword} OR nickname LIKE #{keyword}
+        </if>
+        LIMIT #{num};
+    </select>
+
+    <insert id="insertUser" parameterType="com.happysnaker.pojo.User">
+        INSERT INTO `ums_admin`(`id`, `username`, `password`, `nick_name`, `mail`,
+                                `login_status`, `create_time`, `last_login_time`,
+                                `enable`, `avatar`)
+        SELECT #{id},
+               #{username},
+               #{password},
+               #{nickName},
+               #{mail},
+               #{loginStatus},
+               #{createTime},
+               #{lastLoginTime},
+               #{enable},
+               #{avatar}
+    </insert>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happysnaker.mapper.AuthMapper">
+    <select id="queryRoleByPagination" resultType="com.happysnaker.pojo.Role">
+        SELECT * FROM `auth_role`
+        WHERE id >=
+        (SELECT id FROM `auth_role`
+        <where>
+            <if test="keyword != null">
+                AND name LIKE #{keyword}
+            </if>
+        </where>
+        ORDER BY id
+        LIMIT #{offset}, 1)
+        <if test="keyword != null">
+            AND name LIKE #{keyword}
+        </if>
+        LIMIT 0, #{num};
+    </select>
+
+    <select id="getRoleMenu" resultType="com.happysnaker.pojo.Menu">
+        SELECT *
+        FROM `auth_menu` AS a
+                 INNER JOIN `auth_role_menu_relation` AS b
+                            ON a.id = b.menu_id AND b.role_id = #{roleId}
+    </select>
+
+    <select id="getUserRole" resultType="com.happysnaker.pojo.Role">
+        SELECT *
+        FROM `auth_role`
+        WHERE id IN
+              (SELECT role_id FROM `auth_admin_role_relation` WHERE admin_id = #{userId})
+    </select>
+
+    <select id="getMenuApi"  resultType="com.happysnaker.pojo.ApiTable">
+        SELECT *
+        FROM `auth_api`
+        WHERE id IN
+              (SELECT api_id
+               FROM `auth_menu_api_relation`
+               WHERE menu_id = #{menuId})
+    </select>
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happysnaker.mapper.OrderMapper">
+    <resultMap id="orderMap" type="com.happysnaker.pojo.Order">
+        <id column="id" property="id"></id>
+        <result column="order_type" property="orderType"></result>
+        <result column="store_id" property="storeId"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="pay_type" property="payType"></result>
+        <result column="consume_type" property="consumeType"></result>
+        <result column="table" property="table"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="final_time" property="finalTime"></result>
+        <result column="original_price" property="originalPrice"></result>
+        <result column="shop_discount" property="shopDiscount"></result>
+        <result column="coupon_discount" property="couponDiscount"></result>
+        <result column="address_id" property="addressId"></result>
+        <result column="expected_time" property="expectedTime"></result>
+        <result column="taste" property="taste"></result>
+        <result column="remark" property="remark"></result>
+        <result column="other_fee" property="otherFee"></result>
+        <result column="delete_flag" property="deleteFlag"></result>
+        <result column="code" property="fetchMealCode"></result>
+
+<!--        查询已支付的保证金-->
+        <association property="margin" javaType="java.lang.Integer"
+                     column="id" select="queryOrderMargin"></association>
+
+<!--        查询取餐码-->
+        <association property="fetchMealCode" javaType="java.lang.String"
+                     column="id" select="queryFetchMealCode"></association>
+
+        <!--        查询支付状态-->
+        <association property="paymentStatus" javaType="java.lang.Integer"
+                     column="id" select="queryPaymentStatus"></association>
+
+<!--        查询收获信息-->
+        <association property="address" javaType="com.happysnaker.pojo.Address"
+                     column="address_id" select="queryAddress"></association>
+
+<!--        查询退货申请-->
+        <association property="applyTable" javaType="com.happysnaker.pojo.OrderApplyTable"
+                     column="id" select="queryApplyTable"></association>
+
+<!--        查询订单菜品-->
+        <collection property="dishOrders" ofType="java.util.HashMap"
+                    column="id" select="queryOrderDish"></collection>
+
+
+    </resultMap>
+
+    <resultMap id="orderDishMap" type="java.util.HashMap">
+        <result column="dish_name" property="dishName"></result>
+        <result column="dish_id" property="dishId"></result>
+        <result column="dish_num" property="dishNum"></result>
+        <result column="dish_price" property="dishPrice"></result>
+    </resultMap>
+    <select id="queryPaymentStatus" resultType="java.lang.Integer">
+        SELECT payment_status FROM `oms_order_payment_status` WHERE order_id = #{id}
+    </select>
+
+    <select id="queryApplyTable" resultType="com.happysnaker.pojo.OrderApplyTable">
+        SELECT * FROM oms_cancel_order_apply WHERE order_id = #{id}
+    </select>
+
+    <select id="queryOrderMargin"  resultType="java.lang.Integer">
+        SELECT margin FROM oms_order_margin WHERE order_id = #{id}
+    </select>
+
+    <select id="queryAddress" resultType="com.happysnaker.pojo.Address">
+        SELECT * FROM ums_address WHERE id = #{address_id};
+    </select>
+
+    <select id="queryFetchMealCode" resultType="java.lang.String">
+        SELECT code FROM `oms_fetch_meal_code` WHERE order_id = #{id}
+    </select>
+
+    <select id="queryOrderByPagination" resultType="com.happysnaker.pojo.Order">
+        SELECT * FROM `oms_order`
+        WHERE id >=
+        (SELECT id FROM `oms_order` WHERE delete_flag &amp; 2 = 0
+            <if test="keyword != null">
+                AND id LIKE #{keyword}
+            </if>
+
+            <if test="status != null">
+                AND order_type = #{status}
+            </if>
+
+            <if test="bts != null">
+                AND create_time >= #{bts} AND create_time &lt; #{ets}
+            </if>
+
+            <if test="storeId != null">
+                AND store_id = #{storeId}
+            </if>
+        ORDER BY id
+        LIMIT #{offset}, 1)
+        AND delete_flag &amp; 2 = 0
+        <if test="keyword != null">
+            AND id LIKE #{keyword}
+        </if>
+
+        <if test="status != null">
+            AND order_type = #{status}
+        </if>
+
+        <if test="bts != null">
+            AND create_time >= #{bts} AND create_time &lt; #{ets}
+        </if>
+
+        <if test="storeId != null">
+            AND store_id = #{storeId}
+        </if>
+        LIMIT #{num};
+    </select>
+
+    <select id="queryOrder" resultMap="orderMap">
+        SELECT * FROM `oms_order` WHERE id = #{orderId};
+    </select>
+
+    <select id="queryOrderDish" resultMap="orderDishMap">
+        SELECT * FROM oms_order_dish WHERE order_id = #{id};
+    </select>
+
+    <select id="queryOrdersByUserId" resultMap="orderMap">
+        SELECT * FROM `oms_order` WHERE user_id=#{userId};
+    </select>
+
+    <insert id="insertOrderDish">
+        INSERT INTO oms_order_dish VALUES(#{orderId}, #{map.dishId} ,
+                        #{map.dishName}, #{map.dishNum}, #{map.dishPrice}, #{map.isAdd});
+    </insert>
+
+    <insert id="insertOrderInfo" parameterType="com.happysnaker.pojo.Order">
+        INSERT INTO `restaurant`.`oms_order` SELECT #{id}, #{orderType}, #{storeId}, #{userId}, #{payType},
+        #{consumeType}, #{table}, #{createTime}, #{finalTime},
+        #{originalPrice}, #{shopDiscount}, #{couponDiscount},
+        #{addressId}, #{expectedTime}, #{taste}, #{remark}, #{otherFee}
+    </insert>
+
+</mapper>
